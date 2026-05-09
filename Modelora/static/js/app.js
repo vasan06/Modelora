@@ -64,9 +64,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 function toggleSidebar() {
   const isMobile = window.innerWidth <= 900;
   if (isMobile) {
-    document.body.classList.toggle('sb-mobile-open');
     const sidebar = document.getElementById('sidebar');
-    if (sidebar) sidebar.classList.toggle('open');
+    const shouldOpen = !document.body.classList.contains('sb-mobile-open') && !(sidebar && sidebar.classList.contains('open'));
+    if (shouldOpen) {
+      document.body.classList.add('sb-mobile-open');
+      if (sidebar) sidebar.classList.add('open');
+    } else {
+      closeMobileSidebar();
+    }
     document.body.classList.remove('sb-hidden');
   } else {
     document.body.classList.toggle('sb-hidden');
@@ -80,6 +85,12 @@ function toggleSidebar() {
   }
 }
 
+function closeMobileSidebar() {
+  document.body.classList.remove('sb-mobile-open');
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) sidebar.classList.remove('open');
+}
+
 // Mobile sidebar overlay
 (function setupSbOverlay() {
   let overlay = document.getElementById('sb-overlay');
@@ -88,11 +99,7 @@ function toggleSidebar() {
     overlay.id = 'sb-overlay';
     document.body.appendChild(overlay);
   }
-  overlay.addEventListener('click', () => {
-    document.body.classList.remove('sb-mobile-open');
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) sidebar.classList.remove('open');
-  });
+  overlay.addEventListener('click', closeMobileSidebar);
 })();
 
 // Inject reopen button outside sidebar (desktop only)
