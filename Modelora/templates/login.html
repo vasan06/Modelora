@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZnIiB4MT0iMCIgeTE9IjAiIHgyPSI0OCIgeTI9IjQ4Ij48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjN2M1Y2ZjIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDBkNGZmIi8+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZmcyIiB4MT0iMCIgeTE9IjQ4IiB4Mj0iNDgiIHkyPSIwIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZTA0MGZiIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDBlNWEwIi8+PC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMTMiIGZpbGw9InVybCgjZmcpIiBvcGFjaXR5PSIuMTIiLz4KICA8cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSIxMyIgc3Ryb2tlPSJ1cmwoI2ZnKSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz4KICA8Y2lyY2xlIGN4PSIxMyIgY3k9IjI0IiByPSI0IiBmaWxsPSJ1cmwoI2ZnKSIgb3BhY2l0eT0iLjkiLz4KICA8Y2lyY2xlIGN4PSIzNSIgY3k9IjI0IiByPSI0IiBmaWxsPSJ1cmwoI2ZnKSIgb3BhY2l0eT0iLjkiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEzIiByPSI0IiBmaWxsPSJ1cmwoI2ZnMikiIG9wYWNpdHk9Ii45Ii8+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIzNSIgcj0iMyIgZmlsbD0iIzAwZTVhMCIgb3BhY2l0eT0iLjk1Ii8+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iNS41IiBmaWxsPSJ1cmwoI2ZnKSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjMiIGZpbGw9IiNmZmYiIG9wYWNpdHk9Ii45Ii8+CiAgPGxpbmUgeDE9IjE3IiB5MT0iMjQiIHgyPSIxOC41IiB5Mj0iMjQiIHN0cm9rZT0idXJsKCNmZykiIHN0cm9rZS13aWR0aD0iMS4yIiBvcGFjaXR5PSIuNiIvPgogIDxsaW5lIHgxPSIyOS41IiB5MT0iMjQiIHgyPSIzMSIgeTI9IjI0IiBzdHJva2U9InVybCgjZmcpIiBzdHJva2Utd2lkdGg9IjEuMiIgb3BhY2l0eT0iLjYiLz4KICA8bGluZSB4MT0iMjQiIHkxPSIxNyIgeDI9IjI0IiB5Mj0iMTguNSIgc3Ryb2tlPSJ1cmwoI2ZnMikiIHN0cm9rZS13aWR0aD0iMS4yIiBvcGFjaXR5PSIuNiIvPgogIDxsaW5lIHgxPSIyNCIgeTE9IjI5LjUiIHgyPSIyNCIgeTI9IjMyIiBzdHJva2U9IiMwMGU1YTAiIHN0cm9rZS13aWR0aD0iMS4yIiBvcGFjaXR5PSIuNiIvPgo8L3N2Zz4="><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modelora — Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root,[data-theme="dark"]{
+  --bg:#000000;--card:#0e1320;--border:#1e2d48;
+  --primary:#7c5cfc;--second:#e040fb;--accent:#00d4ff;
+  --text:#eef2ff;--text2:#a8b8d8;--muted:#5878a0;
+  --success:#00e5a0;--danger:#ff4d6d;--warning:#ffb700;
+}
+[data-theme="light"]{
+  --bg:#f0f4ff;--card:#fff;--border:#c8d4f0;
+  --primary:#5a2de0;--second:#a020e0;--accent:#0090c8;
+  --text:#1a2040;--text2:#364070;--muted:#6070a0;
+  --success:#008c60;--danger:#c01840;--warning:#c07000;
+}
+body{background:var(--bg);font-family:'DM Sans',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:background .3s}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* Animated background orbs */
+.orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;animation:orbFloat 14s ease-in-out infinite}
+.orb1{width:500px;height:500px;background:rgba(124,92,252,.13);top:-150px;left:-150px}
+.orb2{width:350px;height:350px;background:rgba(0,212,255,.08);bottom:-100px;right:-80px;animation-delay:-5s}
+.orb3{width:250px;height:250px;background:rgba(224,64,251,.08);top:35%;right:5%;animation-delay:-9s}
+.orb4{width:180px;height:180px;background:rgba(0,229,160,.06);bottom:15%;left:8%;animation-delay:-3s}
+[data-theme="light"] .orb1{background:rgba(120,60,255,.18);filter:blur(80px)}
+[data-theme="light"] .orb2{background:rgba(0,140,220,.15);filter:blur(70px)}
+[data-theme="light"] .orb3{background:rgba(180,40,220,.12);filter:blur(65px)}
+[data-theme="light"] .orb4{background:rgba(0,180,120,.10);filter:blur(60px)}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.05)}66%{transform:translate(-20px,30px) scale(.96)}}
+
+/* Floating particles */
+.particle{position:fixed;pointer-events:none;z-index:0;border-radius:50%;animation:particleFloat linear infinite}
+@keyframes particleFloat{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:.6}90%{opacity:.4}100%{transform:translateY(-10vh) rotate(720deg);opacity:0}}
+
+.wrap{position:relative;z-index:1;width:100%;max-width:440px;padding:20px;animation:cardIn .55s cubic-bezier(.34,1.56,.64,1)}
+@keyframes cardIn{from{opacity:0;transform:translateY(32px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:40px 38px 36px;
+  box-shadow:0 32px 80px rgba(0,0,0,.55),0 0 0 1px rgba(124,92,252,.08);
+  position:relative;overflow:hidden;
+}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(124,92,252,.7),rgba(0,212,255,.5),transparent)}
+.card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,rgba(124,92,252,.04),transparent);pointer-events:none}
+[data-theme="light"] .card{box-shadow:0 8px 40px rgba(80,60,200,.14)}
+
+/* Logo */
+.logo{text-align:center;margin-bottom:28px;animation:logoIn .7s cubic-bezier(.34,1.56,.64,1) .1s both}
+@keyframes logoIn{from{opacity:0;transform:translateY(-14px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.logo-icon{width:76px;height:76px;border-radius:22px;margin:0 auto 14px;
+  background:linear-gradient(135deg,rgba(124,92,252,.14),rgba(224,64,251,.07));
+  border:1px solid rgba(124,92,252,.24);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 28px rgba(124,92,252,.2);
+  transition:box-shadow .3s,transform .3s;
+}
+.logo-icon:hover{transform:scale(1.05);box-shadow:0 0 40px rgba(124,92,252,.35)}
+.logo h1{font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--text)}
+.logo p{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* Tabs */
+.tabs{display:flex;background:rgba(0,0,0,.25);border-radius:13px;padding:4px;margin-bottom:24px;gap:4px;animation:fadeIn .4s ease .25s both}
+[data-theme="light"] .tabs{background:rgba(0,0,0,.07)}
+.tab{flex:1;padding:10px;border:none;background:transparent;color:var(--muted);border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif;transition:all .22s}
+.tab.active{background:linear-gradient(135deg,var(--primary),var(--second));color:#fff;box-shadow:0 2px 14px rgba(124,92,252,.5)}
+
+/* Panels */
+.panel{display:none;animation:panelIn .3s ease}.panel.active{display:block}
+@keyframes panelIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
+
+/* Fields */
+.fl{margin-bottom:16px;animation:fadeIn .35s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+label{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+input{width:100%;padding:12px 14px;background:rgba(0,0,0,.18);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
+[data-theme="light"] input{background:rgba(0,0,0,.04)}
+input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(124,92,252,.15)}
+input::placeholder{color:var(--muted)}
+
+/* Buttons */
+.btn{width:100%;padding:13px;border:none;border-radius:11px;font-size:14px;font-weight:800;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.02em}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--second));color:#fff;box-shadow:0 4px 20px rgba(124,92,252,.42)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,92,252,.6)}
+.btn-demo{background:linear-gradient(135deg,#0ea5e9,#00d4ff);color:#000;margin-top:10px;box-shadow:0 4px 16px rgba(0,212,255,.28)}
+.btn-demo:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,212,255,.4)}
+.btn-ghost{background:transparent;color:var(--muted);border:1.5px solid var(--border)}
+.btn-ghost:hover{background:rgba(124,92,252,.08);border-color:var(--primary);color:var(--primary)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+
+/* Divider */
+.divider{text-align:center;font-size:11px;color:var(--muted);margin:14px 0;position:relative}
+.divider::before,.divider::after{content:'';position:absolute;top:50%;width:41%;height:1px;background:var(--border)}
+.divider::before{left:0}.divider::after{right:0}
+
+/* Messages */
+.msg{padding:11px 14px;border-radius:10px;font-size:13px;margin-bottom:14px;display:none;font-weight:600;animation:fadeIn .3s ease}
+.msg.error{background:rgba(255,77,109,.1);border:1px solid rgba(255,77,109,.3);color:var(--danger)}
+.msg.success{background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.25);color:var(--success)}
+
+/* Spinner */
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Theme button */
+.theme-btn{position:fixed;top:16px;right:16px;z-index:10;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:8px 13px;cursor:pointer;color:var(--text);display:flex;align-items:center;gap:6px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:600;transition:all .2s}
+.theme-btn:hover{border-color:var(--primary);background:rgba(124,92,252,.06)}
+
+/* Light mode: spinning icon on theme btn */
+[data-theme="light"] .theme-btn svg{animation:spinLoop 4s linear infinite}
+@keyframes spinLoop{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+/* Links with subtle rotation animation */
+.forgot-link a,.back-link{transition:color .2s,transform .2s}
+.forgot-link a:hover,.back-link:hover{color:var(--primary);transform:translateX(2px)}
+[data-theme="light"] .forgot-link a{display:inline-flex;align-items:center;gap:3px}
+[data-theme="light"] .forgot-link a::before{content:'↻';animation:spinSlow 3s linear infinite;display:inline-block;font-size:11px;color:var(--primary)}
+
+/* Forgot / OTP flow */
+.forgot-link{text-align:right;margin-top:-8px;margin-bottom:14px}
+.forgot-link a{font-size:11px;color:var(--muted);text-decoration:none;transition:color .2s;cursor:pointer}
+.forgot-link a:hover{color:var(--primary)}
+.step-forgot{display:none}
+.step-forgot.active{display:block}
+.back-link{font-size:12px;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:4px;margin-bottom:14px;transition:color .2s}
+.back-link:hover{color:var(--primary)}
+.otp-row{display:flex;gap:8px;justify-content:center;margin:14px 0}
+.otp-d{width:46px;height:54px;text-align:center;font-size:22px;font-weight:800;border-radius:11px;border:2px solid var(--border);background:rgba(0,0,0,.15);color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;font-family:'DM Mono',monospace}
+.otp-d:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(124,92,252,.18)}
+
+.login-back-btn{
+  position:fixed;
+  top:16px;
+  left:16px;
+  z-index:30;
+  height:38px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:0 14px;
+  border-radius:14px;
+  color:var(--text);
+  background:rgba(14,19,32,.72);
+  border:1.5px solid var(--border);
+  backdrop-filter:blur(16px);
+  box-shadow:0 10px 28px rgba(0,0,0,.28);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+  transition:.25s ease;
+}
+
+[data-theme="light"] .login-back-btn{
+  background:rgba(255,255,255,.78);
+  box-shadow:0 10px 28px rgba(80,60,200,.12);
+}
+
+.login-back-btn svg{
+  flex-shrink:0;
+}
+
+.login-back-btn:hover{
+  color:#fff;
+  border-color:var(--primary);
+  background:linear-gradient(135deg,var(--primary),var(--second));
+  transform:translateX(-3px);
+}
+
+@media(max-width:520px){
+  .login-back-btn{
+    width:38px;
+    padding:0;
+    justify-content:center;
+  }
+
+  .login-back-btn span{
+    display:none;
+  }
+
+  .theme-btn{
+    right:12px;
+    top:12px;
+  }
+}
+
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div><div class="orb orb4"></div>
+<canvas id="ml-bg-canvas" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.35"></canvas>
+
+<button class="theme-btn" onclick="toggleTheme()" id="theme-btn">
+  <svg id="theme-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <span id="theme-label">Light</span>
+</button>
+<a href="/" class="login-back-btn" title="Back to home">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span>Back to Home</span>
+</a>
+<div class="wrap"><div class="card">
+  <div class="logo">
+    <div class="logo-icon" id="logo-3d-wrap">
+      <!-- 3D-animated neural network logo — matches admin/user dashboard -->
+      <canvas id="logo-canvas" width="76" height="76" style="border-radius:18px;display:block;margin:auto"></canvas>
+    </div>
+    <h1>Modelora</h1>
+    <p>Interactive Machine Learning &amp; Visualization Platform</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('login')">Sign In</button>
+    <button class="tab" onclick="switchTab('register')">Create Account</button>
+  </div>
+
+  <div id="msg" class="msg"></div>
+
+  <!-- ── LOGIN PANEL ── -->
+  <div id="panel-login" class="panel active">
+
+    <!-- Step 1: Normal login -->
+    <div class="step-forgot active" id="ls-1">
+      <div class="fl" style="animation-delay:.05s">
+        <label>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email or Username
+        </label>
+        <input id="lu" type="text" placeholder="you@example.com" autocomplete="username">
+      </div>
+      <div class="fl" style="animation-delay:.1s">
+        <label>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Password
+        </label>
+        <input id="lp" type="password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <div class="forgot-link"><a onclick="startForgot()">Forgot password?</a></div>
+      <button class="btn btn-primary" id="login-btn" onclick="doLogin()">Sign In</button>
+      <div class="divider">or continue without an account</div>
+      <button class="btn btn-demo" onclick="demoLogin()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Quick Demo — No Account Needed
+      </button>
+    </div>
+
+    <!-- Step 2: Forgot — enter email -->
+    <div class="step-forgot" id="ls-2">
+      <div class="back-link" onclick="cancelForgot()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Sign In
+      </div>
+      <div class="fl">
+        <label>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Your Email Address
+        </label>
+        <input id="fp-email" type="email" placeholder="you@example.com">
+      </div>
+      <button class="btn btn-primary" id="fp-send-btn" onclick="sendOTP()">Send Verification Code</button>
+    </div>
+
+    <!-- Step 3: Enter OTP -->
+    <div class="step-forgot" id="ls-3">
+      <div class="back-link" onclick="showForgotStep(2)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </div>
+      <div style="text-align:center;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">Check your inbox</div>
+        <div style="font-size:12px;line-height:1.5" id="otp-hint">We sent a 6-digit code to your email</div>
+        <div id="otp-timer" style="font-size:11px;color:rgba(168,184,216,0.6);margin-top:6px;font-variant-numeric:tabular-nums"></div>
+      </div>
+      <div class="otp-row">
+        <input class="otp-d" id="otp-0" maxlength="1" inputmode="numeric" oninput="otpInput(this,0)" onkeydown="otpKey(event,0)">
+        <input class="otp-d" id="otp-1" maxlength="1" inputmode="numeric" oninput="otpInput(this,1)" onkeydown="otpKey(event,1)">
+        <input class="otp-d" id="otp-2" maxlength="1" inputmode="numeric" oninput="otpInput(this,2)" onkeydown="otpKey(event,2)">
+        <input class="otp-d" id="otp-3" maxlength="1" inputmode="numeric" oninput="otpInput(this,3)" onkeydown="otpKey(event,3)">
+        <input class="otp-d" id="otp-4" maxlength="1" inputmode="numeric" oninput="otpInput(this,4)" onkeydown="otpKey(event,4)">
+        <input class="otp-d" id="otp-5" maxlength="1" inputmode="numeric" oninput="otpInput(this,5)" onkeydown="otpKey(event,5)">
+      </div>
+      <div style="text-align:center;margin-bottom:14px">
+        <a id="resend-otp-link" style="font-size:11px;color:var(--muted);cursor:pointer" onclick="sendOTP(true)">Resend code</a>
+      </div>
+      <button class="btn btn-primary" id="fp-verify-btn" onclick="verifyOTP()">Verify Code</button>
+    </div>
+
+    <!-- Step 4: New password -->
+    <div class="step-forgot" id="ls-4">
+      <div class="back-link" onclick="showForgotStep(3)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </div>
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:14px">Set a new password</div>
+      <div class="fl">
+        <label>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          New Password <span style="font-size:9px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--muted)">(min 6 chars)</span>
+        </label>
+        <input id="fp-newpw" type="password" placeholder="New strong password" autocomplete="new-password">
+      </div>
+      <div class="fl">
+        <label>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Confirm Password
+        </label>
+        <input id="fp-confpw" type="password" placeholder="Repeat new password" autocomplete="new-password">
+      </div>
+      <button class="btn btn-primary" id="fp-reset-btn" onclick="resetPassword()">Reset Password</button>
+    </div>
+  </div>
+
+  <!-- ── REGISTER PANEL ── -->
+  <div id="panel-register" class="panel">
+    <div class="fl" style="animation-delay:.05s">
+      <label>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Username
+      </label>
+      <input id="rn" type="text" placeholder="Your name" autocomplete="name">
+    </div>
+    <div class="fl" style="animation-delay:.1s">
+      <label>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email Address
+      </label>
+      <input id="ru" type="email" placeholder="you@example.com" autocomplete="email">
+    </div>
+    <div class="fl" style="animation-delay:.15s">
+      <label>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Password <span style="color:var(--muted);font-size:9px;text-transform:none;letter-spacing:0;font-weight:400">(min 6 chars)</span>
+      </label>
+      <input id="rp" type="password" placeholder="Create a strong password" autocomplete="new-password">
+    </div>
+    <button class="btn btn-primary" id="reg-btn" onclick="doRegister()" style="animation-delay:.2s">Create Account</button>
+  </div>
+
+</div></div>
+
+<script>
+/* ── Enhanced 3D Background canvas animation ── */
+const cv=document.getElementById('bg-canvas'),ctx=cv.getContext('2d');
+let W,H,nodes=[],dataStreams=[],mouseX=0,mouseY=0,scanY=0,frame=0;
+
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;});
+
+function resize(){
+  W=cv.width=innerWidth; H=cv.height=innerHeight;
+  // Neural nodes — 3 layers like a real NN
+  nodes=[];
+  const layers=[[.12,.2,.35,.5,.65,.8],[.22,.38,.55,.72],[.32,.48,.64]];
+  const yPos=[[.2,.38,.56,.74,.87,.95],[.28,.46,.64,.82],[.38,.55,.72]];
+  layers.forEach((lx,li)=>{
+    lx.forEach((x,ni)=>{
+      nodes.push({
+        x:x*W, y:(yPos[li][ni]||.5)*H,
+        vx:(Math.random()-.5)*.12, vy:(Math.random()-.5)*.12,
+        bx:x*W, by:(yPos[li][ni]||.5)*H,
+        r:Math.random()*2+2, layer:li,
+        hue:[260,200,160][li],
+        pulse:Math.random()*Math.PI*2,
+        signal:Math.random(),
+        signalSpeed:.008+Math.random()*.012
+      });
+    });
+  });
+  // Add extra floating ambient nodes
+  for(let i=0;i<35;i++) nodes.push({
+    x:Math.random()*W, y:Math.random()*H,
+    vx:(Math.random()-.5)*.2, vy:(Math.random()-.5)*.2,
+    bx:null, by:null,
+    r:Math.random()*1.2+.3, layer:3,
+    hue:220+Math.random()*100,
+    pulse:Math.random()*Math.PI*2,
+    signal:Math.random(), signalSpeed:.005
+  });
+  // Data streams — vertical falling particles
+  dataStreams=Array.from({length:30},()=>({
+    x:Math.random()*W, y:Math.random()*H,
+    speed:.4+Math.random()*1.2,
+    len:Math.random()*60+20,
+    alpha:Math.random()*.3+.05,
+    char:Math.floor(Math.random()*10)
+  }));
+}
+resize(); window.addEventListener('resize',resize);
+
+function drawBg(){
+  frame++;
+  ctx.clearRect(0,0,W,H);
+  const dark=document.documentElement.getAttribute('data-theme')!=='light';
+
+  // Subtle grid
+  ctx.strokeStyle=dark?'rgba(124,92,252,.03)':'rgba(124,92,252,.04)';
+  ctx.lineWidth=.5;
+  const gs=60;
+  for(let x=0;x<W;x+=gs){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=gs){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  // Scan line
+  scanY=(scanY+.5)%H;
+  const scanGrad=ctx.createLinearGradient(0,scanY-30,0,scanY+30);
+  scanGrad.addColorStop(0,'transparent');
+  scanGrad.addColorStop(.5,dark?'rgba(124,92,252,.06)':'rgba(124,92,252,.04)');
+  scanGrad.addColorStop(1,'transparent');
+  ctx.fillStyle=scanGrad; ctx.fillRect(0,scanY-30,W,60);
+
+  // Data streams (falling digits)
+  dataStreams.forEach(s=>{
+    s.y+=s.speed;
+    if(s.y>H+s.len){s.y=-s.len;s.x=Math.random()*W;}
+    ctx.strokeStyle=`rgba(0,229,160,${s.alpha})`;
+    ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(s.x,s.y-s.len); ctx.lineTo(s.x,s.y); ctx.stroke();
+    if(frame%30===0) s.char=Math.floor(Math.random()*10);
+    ctx.fillStyle=`rgba(0,229,160,${s.alpha*2})`;
+    ctx.font='9px DM Mono,monospace';
+    ctx.fillText(s.char,s.x-3,s.y);
+  });
+
+  // Mouse interaction ripple
+  const md=Math.hypot(mouseX-W/2,mouseY-H/2);
+  if(md<400){
+    const mr=ctx.createRadialGradient(mouseX,mouseY,0,mouseX,mouseY,120);
+    mr.addColorStop(0,dark?'rgba(124,92,252,.08)':'rgba(124,92,252,.05)');
+    mr.addColorStop(1,'transparent');
+    ctx.fillStyle=mr; ctx.beginPath(); ctx.arc(mouseX,mouseY,120,0,Math.PI*2); ctx.fill();
+  }
+
+  // NN connections with signal animation
+  const layerNodes=nodes.filter(n=>n.layer<3);
+  for(let i=0;i<layerNodes.length;i++){
+    for(let j=i+1;j<layerNodes.length;j++){
+      const a=layerNodes[i], b=layerNodes[j];
+      if(a.layer===b.layer) continue;
+      if(Math.abs(a.layer-b.layer)>1) continue;
+      const d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d>W*.35) continue;
+      const opacity=(1-d/(W*.35))*(dark?.18:.1);
+      ctx.strokeStyle=`rgba(124,92,252,${opacity})`;
+      ctx.lineWidth=.8;
+      ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      // Signal pulse travelling along connection
+      if(a.signal>0.95){
+        const t=(frame*.02)%1;
+        const sx=a.x+(b.x-a.x)*t, sy=a.y+(b.y-a.y)*t;
+        ctx.beginPath(); ctx.arc(sx,sy,2,0,Math.PI*2);
+        ctx.fillStyle=`rgba(0,229,160,${opacity*4})`; ctx.fill();
+      }
+    }
+  }
+
+  // Ambient connections
+  const ambient=nodes.filter(n=>n.layer===3);
+  for(let i=0;i<ambient.length;i++) for(let j=i+1;j<ambient.length;j++){
+    const d=Math.hypot(ambient[i].x-ambient[j].x,ambient[i].y-ambient[j].y);
+    if(d<100){
+      ctx.strokeStyle=`rgba(124,92,252,${(1-d/100)*(dark?.1:.05)})`;
+      ctx.lineWidth=.4;
+      ctx.beginPath(); ctx.moveTo(ambient[i].x,ambient[i].y);
+      ctx.lineTo(ambient[j].x,ambient[j].y); ctx.stroke();
+    }
+  }
+
+  // Draw all nodes
+  nodes.forEach(p=>{
+    p.pulse+=p.signalSpeed; p.signal+=p.signalSpeed;
+    if(p.signal>1) p.signal=0;
+    p.x+=p.vx; p.y+=p.vy;
+    // Gentle spring back for NN nodes
+    if(p.bx!==null){p.vx+=(p.bx-p.x)*.002;p.vy+=(p.by-p.y)*.002;p.vx*=.98;p.vy*=.98;}
+    else {
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+    }
+    const r=p.r*(1+.4*Math.sin(p.pulse));
+    const glow=r*5;
+    const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,glow);
+    const a=p.layer<3?.4:.25;
+    g.addColorStop(0,`hsla(${p.hue},80%,65%,${dark?a:a*.5})`);
+    g.addColorStop(.4,`hsla(${p.hue},70%,55%,${dark?a*.3:.1})`);
+    g.addColorStop(1,'transparent');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,glow,0,Math.PI*2); ctx.fill();
+    // Core
+    ctx.beginPath(); ctx.arc(p.x,p.y,r,0,Math.PI*2);
+    ctx.fillStyle=`hsla(${p.hue},80%,68%,${dark?.8:.5})`; ctx.fill();
+    // Inner bright spot
+    if(p.layer<3){
+      ctx.beginPath(); ctx.arc(p.x-r*.3,p.y-r*.3,r*.35,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${dark?.45:.3})`; ctx.fill();
+    }
+  });
+
+  // Big ambient glow orbs (animated)
+  const t=frame*.004;
+  [[W*.2,H*.3,200,260,.12],[W*.8,H*.7,160,200,.09],[W*.5,H*.15,130,160,.07]].forEach(([ox,oy,or,hue,oa])=>{
+    const ox2=ox+Math.sin(t)*30, oy2=oy+Math.cos(t*.7)*20;
+    const og=ctx.createRadialGradient(ox2,oy2,0,ox2,oy2,or);
+    og.addColorStop(0,`hsla(${hue},70%,60%,${dark?oa:oa*.5})`);
+    og.addColorStop(1,'transparent');
+    ctx.fillStyle=og; ctx.beginPath(); ctx.arc(ox2,oy2,or,0,Math.PI*2); ctx.fill();
+  });
+
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+/* ── Theme ── */
+function toggleTheme(){const d=document.documentElement,light=d.getAttribute('data-theme')==='light';d.setAttribute('data-theme',light?'dark':'light');updateThemeBtn(!light);localStorage.setItem('ml_theme',light?'dark':'light');}
+function updateThemeBtn(dark){const icon=document.getElementById('theme-icon'),lbl=document.getElementById('theme-label');if(dark){icon.innerHTML='<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';lbl.textContent='Dark';}else{icon.innerHTML='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';lbl.textContent='Light';}}
+const saved=localStorage.getItem('ml_theme');if(saved){document.documentElement.setAttribute('data-theme',saved);if(saved==='light')updateThemeBtn(false);else updateThemeBtn(true);}
+
+/* ── Tab switching ── */
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',i===(t==='login'?0:1)));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+t).classList.add('active');
+  hideMsg();
+  if(t==='login') showForgotStep(1);
+}
+
+/* ── Messages ── */
+function showMsg(t,type='error'){const el=document.getElementById('msg');el.textContent=t;el.className='msg '+type;el.style.display='block';}
+function hideMsg(){document.getElementById('msg').style.display='none';}
+
+/* ── Btn loading ── */
+function setBtnLoad(id,on,label){const btn=document.getElementById(id);btn.disabled=on;btn.innerHTML=on?'<div class="spinner"></div> Working…':label;}
+
+/* ── Login ── */
+async function doLogin(){
+  localStorage.removeItem('ml_account_locked');
+  const u=document.getElementById('lu').value.trim(),p=document.getElementById('lp').value;
+  if(!u||!p){showMsg('Please enter your email and password');return;}
+  setBtnLoad('login-btn',true);
+  try{
+    const r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:u,password:p})});
+    const d=await r.json();
+    if(d.ok){
+      // Clear any stale lock state if admin unlocked
+      localStorage.removeItem('ml_account_locked');
+      localStorage.setItem('ml_token',d.token);
+      localStorage.setItem('ml_user',d.username||d.email);
+      localStorage.setItem('ml_role',d.role||'user');
+      localStorage.setItem('ml_display_name',d.display_name||d.email||'');
+      localStorage.setItem('ml_tutorial_done',d.tutorial_done?'1':'0');
+      localStorage.removeItem('ml_demo');
+      sessionStorage.removeItem('ml_admin_splash_done');
+      window.location=d.role==='admin'?'/admin/splash':'/dashboard';
+    } else {
+      showMsg(d.msg||'Login failed');
+      // If server says locked, persist it
+      if (d.msg && d.msg.toLowerCase().includes('locked')) {
+        const btn = document.getElementById('login-btn');
+        if (btn) { btn.disabled = true; btn.textContent = 'Account Locked'; btn.style.opacity = '0.5'; }
+      }
+    }
+  } catch(e){showMsg('Network error — is the server running?');}
+  setBtnLoad('login-btn',false,'Sign In');
+}
+
+/* ── Register ── */
+async function doRegister(){
+  const n=document.getElementById('rn')?.value.trim()||'';
+  const u=document.getElementById('ru').value.trim(),p=document.getElementById('rp').value;
+  if(!u||!p){showMsg('Email and password are required');return;}
+  setBtnLoad('reg-btn',true);
+  try{
+    const r=await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:u,password:p,username:n,display_name:n})});
+    const d=await r.json();
+    if(d.ok){
+      showMsg('Account created! Signing you in…','success');
+      setTimeout(async()=>{
+        const r2=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:u,password:p})});
+        const d2=await r2.json();
+        if(d2.ok){
+          localStorage.setItem('ml_token',d2.token);
+          localStorage.setItem('ml_user',d2.username||d2.email);
+          localStorage.setItem('ml_role',d2.role||'user');
+          localStorage.setItem('ml_display_name',d2.display_name||d2.email||'');
+          localStorage.setItem('ml_tutorial_done','0');
+          localStorage.removeItem('ml_demo');
+          sessionStorage.removeItem('ml_admin_splash_done');
+          window.location=d2.role==='admin'?'/admin/splash':'/dashboard';
+        }
+      },900);
+    } else showMsg(d.msg||'Registration failed');
+  } catch(e){showMsg('Network error');}
+  setBtnLoad('reg-btn',false,'Create Account');
+}
+
+/* ── Demo ── */
+async function demoLogin(){
+  const btn=document.querySelector('.btn-demo');btn.disabled=true;
+  btn.innerHTML='<div class="spinner" style="border-top-color:#000"></div> Loading…';
+  try{
+    await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:'demo@ml.local',password:'demo_v5_pass'})}).catch(()=>{});
+    const r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:'demo@ml.local',password:'demo_v5_pass'})});
+    const d=await r.json();
+    if(d.ok){localStorage.setItem('ml_token',d.token);localStorage.setItem('ml_user',d.username||'demo@ml.local');localStorage.setItem('ml_role','user');localStorage.setItem('ml_display_name','Demo User');localStorage.setItem('ml_tutorial_done','0');localStorage.setItem('ml_demo','1');window.location='/dashboard';}
+    else showMsg('Demo error: '+(d.msg||'unknown'));
+  }catch(e){showMsg('Network error');}
+  btn.disabled=false;
+}
+
+/* ── Forgot Password Flow ── */
+let _fpEmail='', _fpOTP='', _fpVerified=false;
+
+function showForgotStep(n){
+  document.querySelectorAll('.step-forgot').forEach((el,i)=>el.classList.toggle('active',i+1===n));
+}
+function startForgot(){hideMsg();showForgotStep(2);}
+function cancelForgot(){hideMsg();showForgotStep(1);}
+
+async function sendOTP(resend=false){
+  const email=document.getElementById('fp-email').value.trim();
+  if(!email){showMsg('Please enter your email address');return;}
+  _fpEmail=email;
+  setBtnLoad('fp-send-btn',true);
+  try{
+    // Store OTP server-side. We simulate here — in production use a real email API
+    const r=await fetch('/api/auth/forgot_password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
+    const d=await r.json();
+    if(d.ok){
+      hideMsg();
+      const hintEl = document.getElementById('otp-hint');
+      const masked = email.replace(/^(.{2})(.*)(@.*)$/, (_, a, b, c) => a + '*'.repeat(Math.min(4,b.length)) + c);
+      if (d.dev) {
+        hintEl.innerHTML = `<span style="color:#ffb700;font-size:11px">&#9888; Dev mode — OTP printed in server terminal (SMTP not set)</span>`;
+      } else {
+        hintEl.innerHTML = `Code sent to <strong>${masked}</strong>`;
+      }
+      // Clear boxes and start timer
+      for(let i=0;i<6;i++){const b=document.getElementById('otp-'+i);if(b)b.value='';}
+      startOtpCountdown();
+      showForgotStep(3);
+      setTimeout(()=>document.getElementById('otp-0')?.focus(), 150);
+      if(resend) showMsg('New code sent!','success');
+      startResendCooldown(30);
+    } else showMsg(d.msg||'Could not send code — check your email address.');
+  }catch(e){showMsg('Network error. Is the server running?');}
+  setBtnLoad('fp-send-btn',false,'Send Verification Code');
+}
+
+function otpKey(e,idx){
+  if(e.key==='Backspace'){
+    const cur=document.getElementById('otp-'+idx);
+    if(cur&&cur.value){cur.value='';}
+    else if(idx>0){const p=document.getElementById('otp-'+(idx-1));if(p){p.value='';p.focus();}}
+    e.preventDefault();
+  } else if(e.key==='ArrowLeft'&&idx>0){document.getElementById('otp-'+(idx-1))?.focus();e.preventDefault();}
+    else if(e.key==='ArrowRight'&&idx<5){document.getElementById('otp-'+(idx+1))?.focus();e.preventDefault();}
+}
+function otpInput(el,idx){
+  el.value=el.value.replace(/\D/g,'').slice(0,1);
+  if(el.value&&idx<5)document.getElementById('otp-'+(idx+1)).focus();
+  if(!el.value&&idx>0){document.getElementById('otp-'+(idx-1)).focus();}
+}
+
+function getOTPValue(){return Array.from({length:6},(_,i)=>document.getElementById('otp-'+i).value).join('');}
+
+async function verifyOTP(){
+  const code=getOTPValue();
+  if(code.length<6){showMsg('Enter all 6 digits');return;}
+  setBtnLoad('fp-verify-btn',true);
+  // Visual: blue glow while verifying
+  for(let i=0;i<6;i++){const b=document.getElementById('otp-'+i);if(b)b.style.borderColor='var(--primary)';}
+  try{
+    const r=await fetch('/api/auth/verify_otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_fpEmail,otp:code})});
+    const d=await r.json();
+    if(d.ok){
+      // Green flash then advance
+      for(let i=0;i<6;i++){const b=document.getElementById('otp-'+i);if(b)b.style.borderColor='#00e5a0';}
+      _fpOTP=code;_fpVerified=true;
+      if(_otpCountdownTimer) clearInterval(_otpCountdownTimer);
+      await new Promise(res=>setTimeout(res,350));
+      hideMsg();showForgotStep(4);
+      document.getElementById('fp-newpw')?.focus();
+    } else {
+      // Red shake
+      for(let i=0;i<6;i++){
+        const b=document.getElementById('otp-'+i);
+        if(b){b.style.borderColor='var(--danger)';b.value='';}
+      }
+      showMsg(d.msg||'Incorrect code — try again');
+      setTimeout(()=>{
+        for(let i=0;i<6;i++){const b=document.getElementById('otp-'+i);if(b)b.style.borderColor='';}
+        document.getElementById('otp-0')?.focus();
+      },600);
+    }
+  }catch(e){showMsg('Network error — is the server running?');}
+  setBtnLoad('fp-verify-btn',false,'Verify Code');
+}
+
+async function resetPassword(){
+  const pw=document.getElementById('fp-newpw').value;
+  const pw2=document.getElementById('fp-confpw').value;
+  if(pw.length<6){showMsg('Password must be at least 6 characters');return;}
+  if(pw!==pw2){showMsg('Passwords do not match');return;}
+  setBtnLoad('fp-reset-btn',true);
+  try{
+    const r=await fetch('/api/auth/reset_password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_fpEmail,otp:_fpOTP,new_password:pw})});
+    const d=await r.json();
+    if(d.ok){showMsg('Password reset! Signing you in…','success');setTimeout(async()=>{const r2=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_fpEmail,password:pw})});const d2=await r2.json();if(d2.ok){localStorage.setItem('ml_token',d2.token);localStorage.setItem('ml_user',d2.username||d2.email);localStorage.setItem('ml_role',d2.role||'user');localStorage.setItem('ml_display_name',d2.display_name||'');window.location='/dashboard';}},1200);}
+    else showMsg(d.msg||'Reset failed. Try again.');
+  }catch(e){showMsg('Network error');}
+  setBtnLoad('fp-reset-btn',false,'Reset Password');
+}
+
+/* ── Keyboard ── */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    if(document.getElementById('panel-login').classList.contains('active')){
+      const step=document.querySelector('.step-forgot.active');
+      if(step?.id==='ls-1') doLogin();
+      else if(step?.id==='ls-2') sendOTP();
+      else if(step?.id==='ls-3') verifyOTP();
+      else if(step?.id==='ls-4') resetPassword();
+    } else doRegister();
+  }
+});
+
+/* ── OTP countdown timer ── */
+let _otpCountdownTimer = null;
+function startOtpCountdown(durationSec = 600) {
+  if (_otpCountdownTimer) clearInterval(_otpCountdownTimer);
+  const timerEl = document.getElementById('otp-timer');
+  let remaining = durationSec;
+  function update() {
+    if (!timerEl) return;
+    const m = Math.floor(remaining / 60), s = remaining % 60;
+    timerEl.textContent = `Code expires in ${m}:${String(s).padStart(2,'0')}`;
+    if (remaining <= 0) { clearInterval(_otpCountdownTimer); timerEl.textContent = 'Code expired — request a new one'; }
+    remaining--;
+  }
+  update();
+  _otpCountdownTimer = setInterval(update, 1000);
+}
+
+let _resendCooldownTimer = null;
+function startResendCooldown(sec = 30) {
+  const link = document.getElementById('resend-otp-link');
+  if (!link) return;
+  link.style.pointerEvents = 'none'; link.style.opacity = '0.45';
+  let t = sec;
+  function upd() {
+    if (link) link.textContent = `Resend in ${t}s`;
+    if (t <= 0) {
+      clearInterval(_resendCooldownTimer);
+      if (link) { link.textContent = 'Resend code'; link.style.pointerEvents = ''; link.style.opacity = ''; }
+    }
+    t--;
+  }
+  upd();
+  _resendCooldownTimer = setInterval(upd, 1000);
+}
+
+/* ── Account locked check ── */
+function checkAccountLocked() {
+  localStorage.removeItem('ml_account_locked');
+}
+
+async function pollUnlockStatus() {
+  const email = document.getElementById('lu')?.value?.trim();
+  if (!email) {
+    showMsg('Enter your email above to check unlock status', 'info');
+    return;
+  }
+  const checkBtn = document.getElementById('unlock-check-btn');
+  if (checkBtn) { checkBtn.textContent = 'Checking…'; checkBtn.disabled = true; }
+  try {
+    const r = await fetch('/api/auth/check_lock', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const d = await r.json();
+    if (d.ok && !d.locked) {
+      // Admin has unlocked this account
+      localStorage.removeItem('ml_account_locked');
+      clearInterval(window._lockPollId);
+      window._lockPollId = null;
+      // Re-enable login
+      const btn = document.getElementById('login-btn');
+      if (btn) { btn.disabled = false; btn.textContent = 'Sign In'; btn.style.opacity = ''; }
+      if (checkBtn) checkBtn.remove();
+      const demoBtn = document.querySelector('.btn-demo');
+      if (demoBtn) demoBtn.style.display = '';
+      showMsg('Account unlocked. You can now sign in.', 'success');
+    } else {
+      showMsg('Account is still locked. Try again later or contact support.');
+    }
+  } catch(e) {
+    showMsg('Could not check status — is the server running?');
+  }
+  if (checkBtn) { checkBtn.textContent = 'Check if unlocked'; checkBtn.disabled = false; }
+}
+
+/* ── Auto-redirect if already logged in ── */
+function clearDemoLoginState(){
+  localStorage.removeItem('ml_token');
+  localStorage.removeItem('ml_user');
+  localStorage.removeItem('ml_role');
+  localStorage.removeItem('ml_display_name');
+  localStorage.removeItem('ml_tutorial_done');
+  localStorage.removeItem('ml_demo');
+}
+
+const _loginParams = new URLSearchParams(window.location.search);
+const _wantsSignup = _loginParams.has('signup') || _loginParams.get('tab') === 'register';
+if (localStorage.getItem('ml_demo') === '1') {
+  clearDemoLoginState();
+  if (_wantsSignup) setTimeout(()=>switchTab('register'), 0);
+} else if (_wantsSignup) {
+  setTimeout(()=>switchTab('register'), 0);
+}
+
+async function checkExistingSession() {
+  // Show lock message first
+  checkAccountLocked();
+
+  const token = localStorage.getItem('ml_token');
+  if (!token) return;
+  try {
+    const res = await fetch('/api/auth/me', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    if (!res.ok) throw new Error('invalid session');
+    const d = await res.json();
+    if (d.ok) {
+      const isAdmin = d.role === 'admin' || d.user?.role === 'admin' || d.is_admin === true;
+      window.location = isAdmin ? '/admin' : '/dashboard';
+      return;
+    }
+  } catch (e) {
+    localStorage.removeItem('ml_token');
+    localStorage.removeItem('ml_role');
+    localStorage.removeItem('ml_user');
+    localStorage.removeItem('ml_display_name');
+    localStorage.removeItem('ml_tutorial_done');
+    localStorage.removeItem('ml_demo');
+  }
+}
+checkExistingSession();
+</script>
+<script src="/static/js/icons.js"></script>
+</body>
+</html>
+
