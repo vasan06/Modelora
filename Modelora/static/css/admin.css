@@ -971,3 +971,524 @@ body:has(.admin-sb-open) .admin-sb-overlay { display: block; }
 }
 #ann-list .announce-item { margin-bottom:8px; transition: background .15s; }
 #ann-list .announce-item:last-child { margin-bottom:0; }
+
+/* Mobile table squeeze: keep admin tables inside the viewport without horizontal scroll. */
+@media (max-width: 900px) {
+  .admin-content {
+    padding: 10px 6px;
+  }
+
+  .a-card {
+    padding: 0 !important;
+    border-radius: 9px;
+  }
+
+  .a-ch {
+    padding: 8px 8px;
+    gap: 5px;
+  }
+
+  .a-ch h3 {
+    font-size: 9px;
+    letter-spacing: .03em;
+  }
+
+  .a-cb {
+    padding: 10px 8px;
+  }
+
+  .filter-bar {
+    gap: 5px;
+  }
+
+  .search-box,
+  select.filter-sel,
+  .config-field input[type=text],
+  .config-field input[type=number],
+  .config-field select {
+    min-width: 0;
+    font-size: 10px;
+    padding: 5px 6px;
+  }
+
+  #admin-sidebar-close-btn {
+    display: flex !important;
+  }
+
+  .tw,
+  #active-sess-table,
+  #sess-history-table,
+  #time-limits-table,
+  #ann-history-table {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: auto;
+  }
+
+  .admin-content table,
+  .tw table,
+  #active-sess-table table,
+  #sess-history-table table,
+  #time-limits-table table,
+  #ann-history-table table,
+  .admin-users-table,
+  .session-table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed !important;
+    border-collapse: collapse;
+  }
+
+  .admin-content table th,
+  .admin-content table td,
+  .tw table th,
+  .tw table td,
+  .session-table th,
+  .session-table td {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: auto !important;
+    padding: 4px 3px !important;
+    font-size: 8px !important;
+    line-height: 1.18 !important;
+    letter-spacing: 0 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    vertical-align: top;
+  }
+
+  .admin-content table th {
+    font-size: 7px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+  }
+
+  .admin-content table th[style],
+  .admin-content table td[style] {
+    width: auto !important;
+    max-width: none !important;
+    white-space: normal !important;
+  }
+
+  .badge {
+    max-width: 100%;
+    padding: 1px 3px !important;
+    border-radius: 4px;
+    font-size: 7px !important;
+    line-height: 1.15;
+    white-space: normal;
+  }
+
+  .btn,
+  .btn-xs {
+    min-height: 0;
+    padding: 3px 4px !important;
+    border-radius: 4px;
+    font-size: 8px !important;
+    line-height: 1.1;
+    gap: 2px;
+  }
+
+  .session-user {
+    align-items: flex-start;
+    gap: 3px;
+  }
+
+  .session-user strong {
+    font-size: 8px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+
+  .sess-avatar {
+    width: 17px !important;
+    height: 17px !important;
+    border-radius: 5px;
+    font-size: 7px !important;
+  }
+
+  .sess-active-dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .user-actions-cell {
+    min-width: 0 !important;
+  }
+
+  .user-menu-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    gap: 2px;
+  }
+
+  .user-menu-btn span {
+    width: 3px;
+    height: 3px;
+  }
+
+  #time-limits-table input,
+  .tl-input {
+    width: 100% !important;
+    min-width: 0;
+    padding: 3px 2px !important;
+    font-size: 8px !important;
+    border-radius: 4px !important;
+  }
+
+  .pagination {
+    gap: 3px;
+    padding: 6px 0;
+    flex-wrap: wrap;
+  }
+
+  .pg-btn {
+    padding: 3px 6px;
+    font-size: 9px;
+  }
+
+  .live-feed {
+    max-height: none;
+  }
+
+  .feed-item {
+    gap: 6px;
+    padding: 6px 0;
+  }
+
+  .feed-text,
+  .feed-text span {
+    font-size: 10px !important;
+    line-height: 1.35;
+  }
+
+  .feed-time {
+    font-size: 8px;
+    white-space: normal;
+    max-width: 48px;
+    text-align: right;
+  }
+
+  #users-table .admin-users-table th:nth-child(1),
+  #users-table .admin-users-table td:nth-child(1) { width: 5% !important; }
+  #users-table .admin-users-table th:nth-child(2),
+  #users-table .admin-users-table td:nth-child(2) { width: 13% !important; }
+  #users-table .admin-users-table th:nth-child(3),
+  #users-table .admin-users-table td:nth-child(3) { width: 10% !important; }
+  #users-table .admin-users-table th:nth-child(4),
+  #users-table .admin-users-table td:nth-child(4) { width: 19% !important; }
+  #users-table .admin-users-table th:nth-child(5),
+  #users-table .admin-users-table td:nth-child(5) { width: 12% !important; }
+  #users-table .admin-users-table th:nth-child(6),
+  #users-table .admin-users-table td:nth-child(6) { width: 8% !important; }
+  #users-table .admin-users-table th:nth-child(7),
+  #users-table .admin-users-table td:nth-child(7) { width: 12% !important; }
+  #users-table .admin-users-table th:nth-child(8),
+  #users-table .admin-users-table td:nth-child(8) { width: 10% !important; }
+  #users-table .admin-users-table th:nth-child(9),
+  #users-table .admin-users-table td:nth-child(9) { width: 11% !important; }
+
+  .active-session-table th:nth-child(1),
+  .active-session-table td:nth-child(1) { width: 5% !important; }
+  .active-session-table th:nth-child(2),
+  .active-session-table td:nth-child(2) { width: 18% !important; }
+  .active-session-table th:nth-child(3),
+  .active-session-table td:nth-child(3) { width: 14% !important; }
+  .active-session-table th:nth-child(4),
+  .active-session-table td:nth-child(4) { width: 16% !important; }
+  .active-session-table th:nth-child(5),
+  .active-session-table td:nth-child(5) { width: 11% !important; }
+  .active-session-table th:nth-child(6),
+  .active-session-table td:nth-child(6) { width: 11% !important; }
+  .active-session-table th:nth-child(7),
+  .active-session-table td:nth-child(7) { width: 12% !important; }
+  .active-session-table th:nth-child(8),
+  .active-session-table td:nth-child(8) { width: 13% !important; }
+
+  .session-history-table th:nth-child(1),
+  .session-history-table td:nth-child(1) { width: 6% !important; }
+  .session-history-table th:nth-child(2),
+  .session-history-table td:nth-child(2) { width: 22% !important; }
+  .session-history-table th:nth-child(3),
+  .session-history-table td:nth-child(3) { width: 18% !important; }
+  .session-history-table th:nth-child(4),
+  .session-history-table td:nth-child(4) { width: 20% !important; }
+  .session-history-table th:nth-child(5),
+  .session-history-table td:nth-child(5) { width: 20% !important; }
+  .session-history-table th:nth-child(6),
+  .session-history-table td:nth-child(6) { width: 14% !important; }
+
+  #audit-table table th:nth-child(1),
+  #audit-table table td:nth-child(1),
+  #sec-ratelimit-table table th:nth-child(1),
+  #sec-ratelimit-table table td:nth-child(1) { width: 5% !important; }
+  #audit-table table th:nth-child(2),
+  #audit-table table td:nth-child(2),
+  #sec-ratelimit-table table th:nth-child(2),
+  #sec-ratelimit-table table td:nth-child(2) { width: 15% !important; }
+  #audit-table table th:nth-child(3),
+  #audit-table table td:nth-child(3),
+  #sec-ratelimit-table table th:nth-child(3),
+  #sec-ratelimit-table table td:nth-child(3) { width: 10% !important; }
+  #audit-table table th:nth-child(4),
+  #audit-table table td:nth-child(4),
+  #sec-ratelimit-table table th:nth-child(4),
+  #sec-ratelimit-table table td:nth-child(4) { width: 16% !important; }
+  #audit-table table th:nth-child(5),
+  #audit-table table td:nth-child(5),
+  #sec-ratelimit-table table th:nth-child(5),
+  #sec-ratelimit-table table td:nth-child(5) { width: 14% !important; }
+  #audit-table table th:nth-child(6),
+  #audit-table table td:nth-child(6),
+  #sec-ratelimit-table table th:nth-child(6),
+  #sec-ratelimit-table table td:nth-child(6) { width: 27% !important; }
+  #audit-table table th:nth-child(7),
+  #audit-table table td:nth-child(7),
+  #sec-ratelimit-table table th:nth-child(7),
+  #sec-ratelimit-table table td:nth-child(7) { width: 13% !important; }
+
+  #exp-table table th:nth-child(1),
+  #exp-table table td:nth-child(1) { width: 5% !important; }
+  #exp-table table th:nth-child(2),
+  #exp-table table td:nth-child(2) { width: 16% !important; }
+  #exp-table table th:nth-child(3),
+  #exp-table table td:nth-child(3) { width: 20% !important; }
+  #exp-table table th:nth-child(4),
+  #exp-table table td:nth-child(4) { width: 13% !important; }
+  #exp-table table th:nth-child(5),
+  #exp-table table td:nth-child(5) { width: 16% !important; }
+  #exp-table table th:nth-child(6),
+  #exp-table table td:nth-child(6) { width: 16% !important; }
+  #exp-table table th:nth-child(7),
+  #exp-table table td:nth-child(7) { width: 14% !important; }
+
+  #sec-failed-table table th:nth-child(1),
+  #sec-failed-table table td:nth-child(1) { width: 22% !important; }
+  #sec-failed-table table th:nth-child(2),
+  #sec-failed-table table td:nth-child(2) { width: 28% !important; }
+  #sec-failed-table table th:nth-child(3),
+  #sec-failed-table table td:nth-child(3) { width: 18% !important; }
+  #sec-failed-table table th:nth-child(4),
+  #sec-failed-table table td:nth-child(4) { width: 32% !important; }
+
+  #sec-locked-table table th:nth-child(1),
+  #sec-locked-table table td:nth-child(1) { width: 20% !important; }
+  #sec-locked-table table th:nth-child(2),
+  #sec-locked-table table td:nth-child(2) { width: 28% !important; }
+  #sec-locked-table table th:nth-child(3),
+  #sec-locked-table table td:nth-child(3) { width: 15% !important; }
+  #sec-locked-table table th:nth-child(4),
+  #sec-locked-table table td:nth-child(4) { width: 22% !important; }
+  #sec-locked-table table th:nth-child(5),
+  #sec-locked-table table td:nth-child(5) { width: 15% !important; }
+
+  #time-limits-table table th:nth-child(1),
+  #time-limits-table table td:nth-child(1) { width: 22% !important; }
+  #time-limits-table table th:nth-child(2),
+  #time-limits-table table td:nth-child(2) { width: 28% !important; }
+  #time-limits-table table th:nth-child(3),
+  #time-limits-table table td:nth-child(3) { width: 12% !important; }
+  #time-limits-table table th:nth-child(4),
+  #time-limits-table table td:nth-child(4) { width: 18% !important; }
+  #time-limits-table table th:nth-child(5),
+  #time-limits-table table td:nth-child(5) { width: 20% !important; }
+}
+
+@media (max-width: 420px) {
+  .admin-content table th,
+  .admin-content table td,
+  .tw table th,
+  .tw table td,
+  .session-table th,
+  .session-table td {
+    padding: 3px 2px !important;
+    font-size: 7px !important;
+    line-height: 1.12 !important;
+  }
+
+  .admin-content table th {
+    font-size: 6.5px !important;
+  }
+
+  .badge {
+    font-size: 6.5px !important;
+    padding: 1px 2px !important;
+  }
+
+  .btn,
+  .btn-xs {
+    font-size: 7px !important;
+    padding: 2px 3px !important;
+  }
+
+  .user-menu-btn {
+    width: 18px;
+    height: 18px;
+  }
+
+  .sess-avatar {
+    display: none;
+  }
+}
+
+/* Mobile table refinement: keep rows aligned and single-line instead of wrapping. */
+@media (max-width: 900px) {
+  .admin-content table,
+  .tw table,
+  #active-sess-table table,
+  #sess-history-table table,
+  #time-limits-table table,
+  #ann-history-table table,
+  .admin-users-table,
+  .session-table {
+    table-layout: fixed !important;
+  }
+
+  .admin-content table th,
+  .admin-content table td,
+  .tw table th,
+  .tw table td,
+  .session-table th,
+  .session-table td,
+  .admin-content table th[style],
+  .admin-content table td[style] {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    vertical-align: middle;
+  }
+
+  .admin-content table th,
+  .tw table th,
+  .session-table th {
+    font-size: 6.8px !important;
+    font-weight: 800;
+    padding: 5px 2px !important;
+  }
+
+  .admin-content table td,
+  .tw table td,
+  .session-table td {
+    font-size: 7.6px !important;
+    padding: 5px 2px !important;
+  }
+
+  .badge {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 6.8px !important;
+    padding: 1px 3px !important;
+  }
+
+  .btn,
+  .btn-xs {
+    white-space: nowrap;
+    font-size: 7.2px !important;
+    padding: 3px 4px !important;
+  }
+
+  .session-user {
+    display: grid;
+    grid-template-columns: 15px minmax(0, 1fr);
+    align-items: center;
+    gap: 3px;
+  }
+
+  .session-user > div:last-child,
+  .session-user strong,
+  .session-user .flex {
+    min-width: 0;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .session-user .flex {
+    display: none;
+  }
+
+  .sess-avatar {
+    width: 15px !important;
+    height: 15px !important;
+    border-radius: 4px;
+    font-size: 6px !important;
+  }
+
+  .user-menu-btn {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+  }
+
+  #time-limits-table input,
+  .tl-input {
+    height: 20px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  #users-table .admin-users-table th:nth-child(1),
+  #users-table .admin-users-table td:nth-child(1) { width: 4% !important; }
+  #users-table .admin-users-table th:nth-child(2),
+  #users-table .admin-users-table td:nth-child(2) { width: 14% !important; }
+  #users-table .admin-users-table th:nth-child(3),
+  #users-table .admin-users-table td:nth-child(3) { width: 10% !important; }
+  #users-table .admin-users-table th:nth-child(4),
+  #users-table .admin-users-table td:nth-child(4) { width: 20% !important; }
+  #users-table .admin-users-table th:nth-child(5),
+  #users-table .admin-users-table td:nth-child(5) { width: 12% !important; }
+  #users-table .admin-users-table th:nth-child(6),
+  #users-table .admin-users-table td:nth-child(6) { width: 7% !important; }
+  #users-table .admin-users-table th:nth-child(7),
+  #users-table .admin-users-table td:nth-child(7) { width: 11% !important; }
+  #users-table .admin-users-table th:nth-child(8),
+  #users-table .admin-users-table td:nth-child(8) { width: 10% !important; }
+  #users-table .admin-users-table th:nth-child(9),
+  #users-table .admin-users-table td:nth-child(9) { width: 12% !important; }
+}
+
+@media (max-width: 420px) {
+  .admin-content table th,
+  .tw table th,
+  .session-table th {
+    font-size: 6px !important;
+    padding: 4px 1px !important;
+  }
+
+  .admin-content table td,
+  .tw table td,
+  .session-table td {
+    font-size: 6.8px !important;
+    padding: 4px 1px !important;
+  }
+
+  .badge {
+    font-size: 6px !important;
+    padding: 1px 2px !important;
+  }
+
+  .btn,
+  .btn-xs {
+    font-size: 6.4px !important;
+    padding: 2px 3px !important;
+  }
+
+  .sess-avatar {
+    display: flex;
+    width: 13px !important;
+    height: 13px !important;
+    font-size: 5.5px !important;
+  }
+}
