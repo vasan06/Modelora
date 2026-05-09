@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const ok = await verifyAdmin();
   if (!ok) { window.location = '/login'; return; }
   hideLoad();
+  setupAdminSidebarOverlay();
   injectNavIcons();
   setupSSE();
   await loadOverview();
@@ -47,11 +48,40 @@ function toggleAdminSidebar() {
   const isMobile = window.innerWidth <= 900;
   if (isMobile) {
     const sb = document.getElementById('admin-sidebar');
-    if (sb) sb.classList.toggle('admin-sb-open');
+    const isOpen = document.body.classList.contains('admin-sb-mobile-open') || (sb && sb.classList.contains('admin-sb-open'));
+    if (isOpen) {
+      closeAdminMobileSidebar();
+    } else {
+      document.body.classList.add('admin-sb-mobile-open');
+      if (sb) sb.classList.add('admin-sb-open');
+    }
   } else {
     const collapsed = document.body.classList.toggle('admin-sidebar-collapsed');
     localStorage.setItem('admin_sb_collapsed', collapsed ? '1' : '0');
   }
+}
+
+function closeAdminMobileSidebar() {
+  document.body.classList.remove('admin-sb-mobile-open');
+  const sb = document.getElementById('admin-sidebar');
+  if (sb) {
+    sb.classList.remove('admin-sb-open');
+    sb.classList.remove('open');
+  }
+}
+
+function setupAdminSidebarOverlay() {
+  let overlay = document.querySelector('.admin-sb-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.className = 'admin-sb-overlay';
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(overlay);
+  }
+  overlay.addEventListener('click', closeAdminMobileSidebar);
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) closeAdminMobileSidebar();
+  });
 }
 
 function injectNavIcons() {
