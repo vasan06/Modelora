@@ -110,6 +110,33 @@ body.sb-hidden #header{left:0!important}
 .logo-title{font-size:14px;font-weight:800;letter-spacing:-.3px}
 .logo-sub{font-size:10px;color:var(--muted);margin-top:1px}
 
+/* Mobile close button */
+#user-sidebar-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.1);
+  color: var(--text);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+#user-sidebar-close-btn:hover {
+  background: rgba(124,92,252,.2);
+  color: var(--primary);
+}
+#user-sidebar-close-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
 /* Steps */
 .steps{padding:12px 14px 0}
 .steps-lbl{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
@@ -1077,6 +1104,8 @@ th, td { padding: 10px 12px; text-align: left; white-space: nowrap; }
   #page-footer { flex-direction: column; align-items: flex-start; gap: 10px; }
   .footer-copy { align-self: flex-end; }
   #sidebar-toggle-btn { display: none; }
+  #user-sidebar-close-btn { display: flex !important; }
+  .sidebar-logo { padding-right: 52px; }
 }
 
 @media (max-width: 600px) {
