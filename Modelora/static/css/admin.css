@@ -61,6 +61,34 @@ code,pre{font-family:'DM Mono',monospace;font-size:11px}
 .a-logo-icon{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--danger),#ff8800);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--glow-d)}
 .a-logo-text{font-size:13px;font-weight:800;letter-spacing:-.2px}
 .a-logo-sub{font-size:10px;color:var(--muted);margin-top:1px}
+
+/* Mobile close button */
+#admin-sidebar-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.1);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+#admin-sidebar-close-btn:hover {
+  background: rgba(124,92,252,.2);
+  color: var(--primary);
+}
+#admin-sidebar-close-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
 .a-nav{padding:12px 8px;flex:1}
 .a-nav-section{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;padding:10px 8px 6px}
 .a-nav-item{
@@ -404,7 +432,7 @@ select.filter-sel:focus{border-color:var(--primary)}
 .a-toast-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
 .a-toast span:first-child{font-size:11px;font-weight:800;flex-shrink:0}
 @keyframes toastIn{from{opacity:0;transform:translateX(48px) scale(.9)}to{opacity:1;transform:none}}
-@keyframes toastOut{to{opacity:0;transform:translateX(48px)}}}
+@keyframes toastOut{to{opacity:0;transform:translateX(48px)}}
 
 /* ── Loading ─────────────────────────────────────────────────────────── */
 #a-overlay{position:fixed;inset:0;background:rgba(4,8,16,.8);z-index:9500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
@@ -667,6 +695,7 @@ table th:nth-child(2), table td:nth-child(2) { text-align: left; }
 @media(max-width:768px) {
   .stat-grid { grid-template-columns: 1fr 1fr; }
   .g2, .g3 { grid-template-columns: 1fr; }
+  #admin-sidebar-close-btn { display: flex !important; }
 }
 
 /* ── Admin 3D animations & visual enhancements ───────────────────────────── */
@@ -867,6 +896,7 @@ table th:nth-child(2), table td:nth-child(2) { text-align: left; }
   background: rgba(0,0,0,.6); backdrop-filter: blur(3px);
 }
 .admin-sb-open ~ .admin-sb-overlay,
+body.admin-sb-mobile-open .admin-sb-overlay,
 body:has(.admin-sb-open) .admin-sb-overlay { display: block; }
 
 /* ── Live 3D Enhancement Styles (Fix 8) ──────────────────────────────── */
