@@ -73,6 +73,14 @@
     <div><div class="logo-title">Modelora</div><div class="logo-sub">Interactive ML Platform</div></div>
   </div>
 
+  <!-- Mobile close button -->
+  <button id="user-sidebar-close-btn" onclick="closeMobileSidebar()" title="Close sidebar" aria-label="Close sidebar">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+
   <!-- ── Sidebar collapse tab (inside sidebar, no overlap) ── -->
   <button id="sidebar-toggle-btn" onclick="toggleSidebar()" title="Collapse sidebar" aria-label="Toggle sidebar">
     <svg id="stb-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -250,7 +258,7 @@
 
 <!-- ── Header ─────────────────────────────────────────────────────────────── -->
 <header id="header">
-  <div class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">
+  <div class="hamburger" onclick="toggleSidebar()">
     <span></span><span></span><span></span>
   </div>
   <span style="display:inline-flex;align-items:center;color:var(--primary)" data-icon="brain"></span>
