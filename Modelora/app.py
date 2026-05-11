@@ -105,7 +105,11 @@ def robots():
 
 @app.route('/sitemap.xml')
 def sitemap():
-    return send_from_directory('static', 'sitemap.xml')
+    return send_from_directory(
+        'static',
+        'sitemap.xml',
+        mimetype='application/xml'
+    )
 
 @app.route('/google2077f6ca169844c1.html')
 def google_verify():
