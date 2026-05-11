@@ -103,6 +103,10 @@ def too_many(e):     return jsonify({"ok":False,"msg":"Too many requests"}),429
 def robots():
     return send_from_directory('static', 'robots.txt')
 
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory('static', 'sitemap.xml')
+
 if __name__ == "__main__":
     logging.getLogger().info("Modelora V6 -> http://localhost:%s", config.PORT)
     logging.getLogger().info("Admin Panel  -> http://localhost:%s/admin", config.PORT)
