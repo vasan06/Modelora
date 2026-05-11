@@ -107,6 +107,10 @@ def robots():
 def sitemap():
     return send_from_directory('static', 'sitemap.xml')
 
+@app.route('/google2077f6ca169844c1.html')
+def google_verify():
+    return send_from_directory('static', 'google2077f6ca169844c1.html')
+
 if __name__ == "__main__":
     logging.getLogger().info("Modelora V6 -> http://localhost:%s", config.PORT)
     logging.getLogger().info("Admin Panel  -> http://localhost:%s/admin", config.PORT)
