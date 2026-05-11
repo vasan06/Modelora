@@ -848,3 +848,24 @@ body.first-load .depth-card{
   from{opacity:0;transform:translateY(40px)}
   to{opacity:1;transform:translateY(0)}
 }
+
+.seo-section{
+    padding:80px 20px;
+}
+
+.seo-container{
+    max-width:1100px;
+    margin:auto;
+    line-height:1.8;
+}
+
+.seo-container h1,
+.seo-container h2{
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+.seo-container p,
+.seo-container li{
+    font-size:16px;
+}
