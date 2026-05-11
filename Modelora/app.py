@@ -15,6 +15,7 @@ from api.export  import exp_bp
 from api.admin   import admin_bp
 from middleware.security import apply_security_headers
 from db import admin_store
+from flask import send_from_directory
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.config["SECRET_KEY"]         = config.SECRET_KEY
@@ -97,6 +98,10 @@ def not_found(e):    return jsonify({"ok":False,"msg":"Not found"}),404
 def server_error(e): logging.getLogger().error("500: %s",e); return jsonify({"ok":False,"msg":"Internal server error"}),500
 @app.errorhandler(429)
 def too_many(e):     return jsonify({"ok":False,"msg":"Too many requests"}),429
+
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory('static', 'robots.txt')
 
 if __name__ == "__main__":
     logging.getLogger().info("Modelora V6 -> http://localhost:%s", config.PORT)
