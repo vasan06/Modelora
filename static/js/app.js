@@ -33,7 +33,7 @@ function escHtml(s) {
 // ── Boot ──────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
   if (!S.token) { window.location = '/login'; return; }
-  applyTheme(localStorage.getItem('ml_theme') || 'dark');
+  applyTheme(localStorage.getItem('ml_theme') || 'light');
   fetchAndApplyPublicTheme();
   injectPageIcons();
 

@@ -20,7 +20,7 @@ const A = {
 
 document.addEventListener('DOMContentLoaded', async () => {
   if (!A.token) { window.location = '/login'; return; }
-  applyTheme(localStorage.getItem('ml_theme') || 'dark');
+  applyTheme(localStorage.getItem('ml_theme') || 'light');
   showLoad();
   const ok = await verifyAdmin();
   if (!ok) { window.location = '/login'; return; }

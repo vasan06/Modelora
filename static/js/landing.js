@@ -4,7 +4,7 @@
 const root = document.documentElement;
 const themeToggle = document.getElementById("themeToggle");
 
-const savedTheme = localStorage.getItem("modelora_theme") || "dark";
+const savedTheme = localStorage.getItem("modelora_theme") || "light";
 root.setAttribute("data-theme", savedTheme);
 
 themeToggle.addEventListener("click", () => {
