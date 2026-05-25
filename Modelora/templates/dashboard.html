@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZnIiB4MT0iMCIgeTE9IjAiIHgyPSI0OCIgeTI9IjQ4Ij48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjN2M1Y2ZjIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDBkNGZmIi8+PC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZmcyIiB4MT0iMCIgeTE9IjQ4IiB4Mj0iNDgiIHkyPSIwIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZTA0MGZiIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDBlNWEwIi8+PC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMTMiIGZpbGw9InVybCgjZmcpIiBvcGFjaXR5PSIuMTIiLz4KICA8cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSIxMyIgc3Ryb2tlPSJ1cmwoI2ZnKSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz4KICA8Y2lyY2xlIGN4PSIxMyIgY3k9IjI0IiByPSI0IiBmaWxsPSJ1cmwoI2ZnKSIgb3BhY2l0eT0iLjkiLz4KICA8Y2lyY2xlIGN4PSIzNSIgY3k9IjI0IiByPSI0IiBmaWxsPSJ1cmwoI2ZnKSIgb3BhY2l0eT0iLjkiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEzIiByPSI0IiBmaWxsPSJ1cmwoI2ZnMikiIG9wYWNpdHk9Ii45Ii8+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIzNSIgcj0iMyIgZmlsbD0iIzAwZTVhMCIgb3BhY2l0eT0iLjk1Ii8+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iNS41IiBmaWxsPSJ1cmwoI2ZnKSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjMiIGZpbGw9IiNmZmYiIG9wYWNpdHk9Ii45Ii8+CiAgPGxpbmUgeDE9IjE3IiB5MT0iMjQiIHgyPSIxOC41IiB5Mj0iMjQiIHN0cm9rZT0idXJsKCNmZykiIHN0cm9rZS13aWR0aD0iMS4yIiBvcGFjaXR5PSIuNiIvPgogIDxsaW5lIHgxPSIyOS41IiB5MT0iMjQiIHgyPSIzMSIgeTI9IjI0IiBzdHJva2U9InVybCgjZmcpIiBzdHJva2Utd2lkdGg9IjEuMiIgb3BhY2l0eT0iLjYiLz4KICA8bGluZSB4MT0iMjQiIHkxPSIxNyIgeDI9IjI0IiB5Mj0iMTguNSIgc3Ryb2tlPSJ1cmwoI2ZnMikiIHN0cm9rZS13aWR0aD0iMS4yIiBvcGFjaXR5PSIuNiIvPgogIDxsaW5lIHgxPSIyNCIgeTE9IjI5LjUiIHgyPSIyNCIgeTI9IjMyIiBzdHJva2U9IiMwMGU1YTAiIHN0cm9rZS13aWR0aD0iMS4yIiBvcGFjaXR5PSIuNiIvPgo8L3N2Zz4="><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modelora — Interactive ML</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/main.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+<canvas id="dash-bg-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.25"></canvas>
+
+<!-- ── Lock Screen Overlay ─────────────────────────────────────────────────── -->
+<div id="lock-overlay">
+  <div class="lock-card">
+    <div class="lock-icon">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+    </div>
+    <div class="lock-title">Access Locked</div>
+    <div class="lock-msg">Your account has been locked due to suspicious or unusual activity. Please contact the administrator for further assistance.</div>
+    <div class="lock-hint">You will remain locked out until an administrator unlocks your account.</div>
+  </div>
+</div>
+
+<!-- ── Tutorial Overlay ──────────────────────────────────────────────────── -->
+<div id="tutorial">
+  <div class="tut-card">
+    <div class="tut-step" id="tut-step">Step 1 of 5</div>
+    <div class="tut-icon" id="tut-icon"></div>
+    <div class="tut-title" id="tut-title">Welcome!</div>
+    <div class="tut-body" id="tut-body">Loading…</div>
+    <div class="tut-dots" id="tut-dots"></div>
+    <div class="tut-btns">
+      <button class="btn btn-secondary" onclick="skipTutorial()">Skip</button>
+      <button class="btn btn-primary" id="tut-next" onclick="nextTutStep()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Loading Overlay ───────────────────────────────────────────────────── -->
+<div id="overlay" class="show">
+  <canvas id="loader-canvas" width="120" height="120" style="margin-bottom:18px;border-radius:50%;filter:drop-shadow(0 0 24px rgba(124,92,252,.6))"></canvas>
+  <div class="ld-text" id="ld-text">Processing…</div>
+  <div class="ld-sub" id="ld-sub">Please wait</div>
+  <div class="ld-progress"><div class="ld-bar"></div></div>
+</div>
+
+<!-- ── Toast Container ──────────────────────────────────────────────────── -->
+<div id="toasts"></div>
+
+<!-- ── Session Countdown Banner ─────────────────────────────────────────── -->
+<div id="session-countdown" style="display:none;position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(460px,calc(100vw - 32px));background:rgba(124,92,252,0.92);color:white;padding:10px 16px;text-align:center;font-size:13px;font-weight:600;z-index:1000;border:1px solid rgba(255,255,255,0.15);border-radius:18px;box-shadow:0 22px 50px rgba(0,0,0,.2);backdrop-filter:blur(14px);pointer-events:none;">
+  <span id="countdown-text">Session expires in: <span id="countdown-timer">--:--</span></span>
+</div>
+
+<!-- ── Announcement Popup Container ──────────────────────────────────────── -->
+<div id="announce-popup-wrap" style="position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;width:min(520px,92vw)"></div>
+
+<!-- ── Sidebar Toggle Button ──────────────────────────────────────────── -->
+<div id="sidebar-toggle" onclick="toggleSidebar()" title="Toggle sidebar">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 18 9 12 15 6"/>
+  </svg>
+</div>
+
+<!-- ── Sidebar ────────────────────────────────────────────────────────────── -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon-wrap" id="logo-wrap" style="width:36px;height:36px;border-radius:10px;overflow:hidden;flex-shrink:0">
+      <canvas id="user-logo-cv" width="36" height="36" style="display:block"></canvas>
+    </div>
+    <div><div class="logo-title">Modelora</div><div class="logo-sub">Interactive ML Platform</div></div>
+  </div>
+
+  <!-- Mobile close button -->
+  <button id="user-sidebar-close-btn" onclick="closeMobileSidebar()" title="Close sidebar" aria-label="Close sidebar">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+
+  <!-- ── Sidebar collapse tab (inside sidebar, no overlap) ── -->
+  <button id="sidebar-toggle-btn" onclick="toggleSidebar()" title="Collapse sidebar" aria-label="Toggle sidebar">
+    <svg id="stb-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+
+  <div class="steps">
+    <div class="steps-lbl">Pipeline Progress</div>
+    <div class="step" id="step-1"><div class="snum active" id="sn-1">1</div><span class="slbl">Upload Dataset</span></div>
+    <div class="step" id="step-2"><div class="snum inactive" id="sn-2">2</div><span class="slbl">Preprocess</span></div>
+    <div class="step" id="step-3"><div class="snum inactive" id="sn-3">3</div><span class="slbl">Configure</span></div>
+    <div class="step" id="step-4"><div class="snum inactive" id="sn-4">4</div><span class="slbl">Train</span></div>
+    <div class="step" id="step-5"><div class="snum inactive" id="sn-5">5</div><span class="slbl">Results</span></div>
+  </div>
+
+  <!-- Dataset -->
+  <div class="ss" id="ss-dataset">
+    <div class="ss-title"><span class="si" data-icon="dataset"></span> Dataset</div>
+    <span class="form-lbl">Built-in Datasets</span>
+    <div class="dataset-info-note" id="dataset-info-note" style="display:none"></div>
+    <select id="builtin-sel" onchange="onBuiltinChange(this)">
+      <option value="">Choose a dataset…</option>
+      <optgroup label="Classification">
+        <option value="iris">Iris</option>
+        <option value="wine">Wine</option>
+        <option value="breast_cancer">Breast Cancer</option>
+        <option value="digits">Digits (MNIST small)</option>
+        <option value="20news_small">20 Newsgroups (small)</option>
+        <option value="moons">Two Moons (synthetic)</option>
+        <option value="circles">Two Circles (synthetic)</option>
+        <option value="blobs">Blobs (synthetic)</option>
+        <option value="classification">Random Classification</option>
+        <option value="banknote">Banknote Authentication</option>
+        <option value="spambase_small">Spam Email (small)</option>
+        <option value="titanic_sim">Titanic (simulated)</option>
+      </optgroup>
+      <optgroup label="Regression">
+        <option value="diabetes">Diabetes</option>
+        <option value="california">California Housing</option>
+        <option value="boston_sim">Boston Housing (simulated)</option>
+        <option value="linnerud">Linnerud</option>
+        <option value="friedman1">Friedman #1 (synthetic)</option>
+        <option value="friedman2">Friedman #2 (synthetic)</option>
+        <option value="friedman3">Friedman #3 (synthetic)</option>
+        <option value="regression">Random Regression</option>
+        <option value="energy_sim">Energy Efficiency (simulated)</option>
+        <option value="auto_mpg_sim">Auto MPG (simulated)</option>
+      </optgroup>
+      <optgroup label="Clustering / Unsupervised">
+        <option value="olivetti">Olivetti Faces (PCA)</option>
+        <option value="swiss_roll">Swiss Roll (3D)</option>
+        <option value="s_curve">S-Curve (3D)</option>
+        <option value="anisotropic">Anisotropic Blobs</option>
+        <option value="varied_var">Varied Variance Blobs</option>
+        <option value="noisy_moons">Noisy Moons</option>
+        <option value="noisy_circles">Noisy Circles</option>
+        <option value="no_structure">No Structure (uniform)</option>
+      </optgroup>
+      <optgroup label="Multivariate / Time-series">
+        <option value="stock_sim">Stock Prices (simulated)</option>
+        <option value="weather_sim">Weather Data (simulated)</option>
+        <option value="sensor_sim">Sensor Readings (simulated)</option>
+        <option value="survey_sim">Survey Results (simulated)</option>
+      </optgroup>
+    </select>
+    <div class="upload-zone" id="upload-zone">
+      <input type="file" id="file-input" accept=".csv,.xlsx,.json,.tsv,.parquet,.xml,.pkl,.pickle,.arff,.db,.sqlite">
+      <div class="uz-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg></div>
+      <p>Drag &amp; drop or click</p>
+      <p style="font-size:10px;margin-top:2px;color:var(--muted)">CSV XLSX JSON TSV Parquet XML SQLite ARFF Pickle</p>
+    </div>
+  </div>
+
+  <!-- ML Config -->
+  <div class="ss" id="ss-config">
+    <div class="ss-title"><span class="si" data-icon="settings"></span> Configuration</div>
+    <span class="form-lbl">Category</span>
+    <select id="algo-cat">
+      <option value="">Select category…</option>
+      <option value="SML">Supervised ML</option>
+      <option value="UNSML">Unsupervised ML</option>
+      <option value="SSVML">Semi-supervised ML</option>
+      <option value="RL">Reinforcement Learning</option>
+      <option value="DL">Deep Learning / Neural Networks</option>
+    </select>
+    <span class="form-lbl">Algorithm Type</span>
+    <select id="algo-type"><option value="">Select type…</option></select>
+    <span class="form-lbl">Algorithm</span>
+    <select id="algo-name"><option value="">Select algorithm…</option></select>
+
+    <div id="target-wrap">
+      <span class="form-lbl">Target Column</span>
+      <select id="target-col"><option value="">Select target…</option></select>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+      <span class="form-lbl" style="margin:0">Feature Columns</span>
+      <div style="display:flex;gap:6px">
+        <button type="button" class="btn btn-ghost" style="font-size:10px;padding:2px 7px" onclick="selectAllFeats()">All</button>
+        <button type="button" class="btn btn-ghost" style="font-size:10px;padding:2px 7px" onclick="selectNoneFeats()">None</button>
+      </div>
+    </div>
+    <div id="feat-checks-wrap" style="max-height:180px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;padding:6px;background:var(--bg)"></div>
+    <select id="feat-cols" class="multisel" multiple style="display:none"></select>
+
+    <span class="form-lbl">Train / Test Split</span>
+    <div style="padding:4px 0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:11px;color:var(--text2)">Train: <strong id="train-pct" style="color:var(--primary)">80</strong>%</span>
+        <span style="font-size:11px;color:var(--text2)">Test: <strong id="test-pct" style="color:var(--accent)">20</strong>%</span>
+      </div>
+      <input type="range" id="train-ratio" min="10" max="95" step="5" value="80"
+        oninput="updateSplitLabel()"
+        style="width:100%;accent-color:var(--primary);height:6px;border-radius:3px;cursor:pointer">
+      <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:3px">
+        <span>10%</span><span>50%</span><span>95%</span>
+      </div>
+    </div>
+    <div id="split-info" style="font-size:10px;color:var(--muted);margin-top:2px;text-align:center">80% training / 20% testing</div>
+
+    <div id="cv-folds-wrap" style="display:none">
+    <span class="form-lbl">Cross-Validation Folds</span>
+    <select id="cv-folds">
+      <option value="3">3-fold CV</option>
+      <option value="5" selected>5-fold CV (recommended)</option>
+      <option value="10">10-fold CV</option>
+    </select>
+    </div>
+
+    <div class="param-panel" id="pp-clusters">
+      <span class="form-lbl">Number of Clusters (K)</span>
+      <input type="number" id="n-clusters" value="3" min="2" max="20">
+    </div>
+    <div class="param-panel" id="pp-dbscan">
+      <span class="form-lbl">DBSCAN: ε (epsilon)</span>
+      <input type="number" id="dbscan-eps" value="0.5" min="0.1" max="10" step="0.1">
+      <span class="form-lbl">Min Samples</span>
+      <input type="number" id="dbscan-min" value="5" min="2" max="50">
+    </div>
+    <div class="param-panel" id="pp-components">
+      <span class="form-lbl">Components / Dimensions</span>
+      <input type="number" id="n-components" value="2" min="2" max="10">
+    </div>
+    <div class="param-panel" id="pp-contamination">
+      <span class="form-lbl">Contamination (anomaly %)</span>
+      <input type="number" id="contamination" value="0.1" min="0.01" max="0.5" step="0.01">
+    </div>
+
+    <button class="btn btn-primary btn-run" id="run-btn" onclick="runPipeline()" disabled>Run Pipeline</button>
+  </div>
+
+  <!-- Exports -->
+  <div class="ss">
+    <div class="ss-title"><span class="si" data-icon="export"></span> Export</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <button class="btn btn-secondary btn-sm" onclick="doExport('predictions')">Predictions CSV</button>
+      <button class="btn btn-secondary btn-sm" onclick="doExport('processed')">Processed Dataset</button>
+      <button class="btn btn-secondary btn-sm" onclick="doExport('arff')">ARFF File</button>
+      <button class="btn btn-secondary btn-sm" onclick="doExport('summary')">Summary JSON</button>
+    </div>
+  </div>
+
+  <!-- User info at bottom -->
+  <div class="ss" style="margin-top:auto;padding-bottom:18px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="avatar" id="sb-avatar">?</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" id="sb-name">…</div>
+        <div style="font-size:10px;color:var(--muted)" id="sb-exp">0 experiments</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ── Header ─────────────────────────────────────────────────────────────── -->
+<header id="header">
+  <div class="hamburger" onclick="toggleSidebar()">
+    <span></span><span></span><span></span>
+  </div>
+  <span style="display:inline-flex;align-items:center;color:var(--primary)" data-icon="brain"></span>
+  <span class="hds-name" id="h-dsname">No Dataset Loaded</span>
+  <span class="hds-meta hidden" id="h-dsmeta"></span>
+  <div class="hright">
+    <span id="h-algo-badge" class="hidden"></span>
+    <!-- Admin: Go to Admin Console button (only visible for admin role) -->
+    <a href="/admin" id="admin-to-dash-btn" title="Go to Admin Console">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Admin Console
+    </a>
+    <button class="btn btn-secondary btn-sm" onclick="toggleTheme()" id="theme-btn" title="Toggle theme" style="padding:6px 10px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <div id="user-chip" class="user-chip" onclick="toggleUserDropdown()" style="position:relative">
+      <div class="avatar" id="h-avatar">?</div>
+      <span style="font-size:13px;font-weight:600" id="h-uname">…</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="user-dropdown" id="user-dropdown">
+        <div class="ud-header">
+          <div class="ud-username" id="ud-dname">Loading…</div>
+          <div class="ud-email" id="ud-email">…</div>
+        </div>
+        <button class="ud-item" onclick="switchTab(document.querySelector('[data-tab=history]'));closeDropdown()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="12 8 12 12 14 14"/><path d="M3.05 11a9 9 0 1 1 .5 4m-.5-4v-4h4"/></svg>
+          My Experiments
+        </button>
+        <button class="ud-item danger" onclick="logout()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sign Out
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Announcement Banner (below header, shown above content) ──────────── -->
+<div id="ann-banner"></div>
+
+<!-- ── Main Content ───────────────────────────────────────────────────────── -->
+<main id="main">
+<div class="content">
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" data-tab="overview"    onclick="switchTab(this)"><span class="tab-icon" data-icon="overview"></span> Overview</button>
+    <button class="tab"        data-tab="preprocess"  onclick="switchTab(this)"><span class="tab-icon" data-icon="preprocess"></span> Preprocessing</button>
+    <button class="tab"        data-tab="results"     onclick="switchTab(this)"><span class="tab-icon" data-icon="results"></span> Results</button>
+    <button class="tab"        data-tab="charts"      onclick="switchTab(this)"><span class="tab-icon" data-icon="charts"></span> Charts</button>
+    <button class="tab"        data-tab="whatif"      onclick="switchTab(this)"><span class="tab-icon" data-icon="whatif"></span> What-If</button>
+    <button class="tab"        data-tab="arena"       onclick="switchTab(this)"><span class="tab-icon" data-icon="arena"></span> Model Arena</button>
+    <button class="tab"        data-tab="visualizer"  onclick="switchTab(this)"><span class="tab-icon" data-icon="visualizer"></span> Visualizer</button>
+    <button class="tab"        data-tab="history"     onclick="switchTab(this)"><span class="tab-icon" data-icon="history"></span> History</button>
+    <button class="tab"        data-tab="feedback"    onclick="switchTab(this)"><span class="tab-icon" data-icon="announce"></span> Feedback</button>
+  </div>
+
+  <!-- ── OVERVIEW ───────────────────────────────────────────────────────── -->
+  <div class="tp active" id="tab-overview">
+    <div id="welcome-block">
+      <div class="welcome">
+        <div class="wi"><span data-icon="brain"></span></div>
+        <h2>Welcome to Modelora</h2>
+        <p>Upload your dataset or choose from 30+ built-in ones. Select any algorithm across all ML categories, click Run, and explore interactive results, step-by-step algorithm animations, and What-If predictions.</p>
+        <div class="fgrid">
+          <div class="fi"><div class="fi-icon"><span data-icon="settings"></span></div><h4>50+ Algorithms</h4><p>SML, UNSML, Semi-supervised, RL, Neural Networks — all categories supported.</p></div>
+          <div class="fi"><div class="fi-icon"><span data-icon="live"></span></div><h4>Live Animations</h4><p>Watch each algorithm work step-by-step with formulas, derivations, and real-world examples.</p></div>
+          <div class="fi"><div class="fi-icon"><span data-icon="target"></span></div><h4>What-If Predictor</h4><p>Enter custom values and see predictions in real time for any trained model type.</p></div>
+          <div class="fi"><div class="fi-icon"><span data-icon="arena"></span></div><h4>Model Arena</h4><p>Compare all 50+ algorithms side-by-side — ranked top 10 across all categories.</p></div>
+          <div class="fi"><div class="fi-icon"><span data-icon="dataset"></span></div><h4>30+ Datasets</h4><p>Classification, regression, clustering, time-series — preloaded and ready.</p></div>
+          <div class="fi"><div class="fi-icon"><span data-icon="upload"></span></div><h4>9 File Formats</h4><p>CSV, XLSX, JSON, TSV, Parquet, XML, SQLite, ARFF, Pickle supported.</p></div>
+        </div>
+      </div>
+    </div>
+    <div id="overview-block" class="hidden">
+      <div class="mgrid">
+        <div class="mc"><div class="lbl">Rows</div><div class="val" id="m-rows">—</div></div>
+        <div class="mc c-blue"><div class="lbl">Columns</div><div class="val" id="m-cols">—</div></div>
+        <div class="mc"><div class="lbl">Missing</div><div class="val" id="m-miss" style="color:var(--warning)">—</div></div>
+        <div class="mc c-green"><div class="lbl">Numeric Cols</div><div class="val" id="m-num">—</div></div>
+        <div class="mc"><div class="lbl">Quality Score</div><div class="val" id="m-qual">—</div><div class="sub">out of 100</div></div>
+      </div>
+      <div id="leak-warn" class="leak-warn hidden"></div>
+      <div class="g2 mb16">
+        <div class="card"><div class="ch"><h3>Dataset Preview</h3><span class="badge b-blue" id="prev-badge">—</span></div><div style="padding:0"><div class="tw" id="prev-table"></div></div></div>
+        <div class="card"><div class="ch"><h3>Column Info</h3></div><div style="padding:0"><div class="tw" id="col-table"></div></div></div>
+      </div>
+      <div class="g2">
+        <div class="card"><div class="ch"><h3>Correlation Matrix</h3></div><div class="cb"><div id="corr-chart" style="height:300px"></div></div></div>
+        <div class="card"><div class="ch"><h3>Distribution Explorer</h3><select id="dist-sel" style="width:130px;font-size:11px" onchange="renderDist()"></select></div><div class="cb"><div id="dist-chart" style="height:278px"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PREPROCESSING ──────────────────────────────────────────────────── -->
+  <div class="tp" id="tab-preprocess">
+    <div class="empty" id="pp-empty">Upload a dataset to see preprocessing details.</div>
+    <div id="pp-block" class="hidden">
+      <div class="g2 mb16">
+        <div class="card"><div class="ch"><h3>Preprocessing Report</h3></div><div class="cb" id="pp-report"></div></div>
+        <div class="card"><div class="ch"><h3>Data Quality Score</h3></div><div class="cb" id="pp-quality"></div></div>
+      </div>
+      <div class="g2 mb16">
+        <div class="card"><div class="ch"><h3>Schema Detection</h3></div><div style="padding:0"><div class="tw" id="pp-schema"></div></div></div>
+        <div class="card"><div class="ch"><h3>Outlier Summary (|Z|>3)</h3></div><div class="cb"><div id="pp-outlier" style="height:220px"></div></div></div>
+      </div>
+      <div class="card"><div class="ch"><h3>Missing Values (%)</h3></div><div class="cb"><div id="pp-missing" style="height:200px"></div></div></div>
+    </div>
+  </div>
+
+  <!-- ── RESULTS ────────────────────────────────────────────────────────── -->
+  <div class="tp" id="tab-results">
+    <div class="empty" id="res-empty">Run a pipeline to see model results.</div>
+    <div id="res-block" class="hidden">
+      <div id="overfit-box" class="mb12"></div>
+      <div class="mgrid" id="res-metrics"></div>
+      <div id="cv-block" class="hidden mb16"></div>
+      <div class="g2 mb16">
+        <div class="card"><div class="ch"><h3 id="cm-title">Confusion Matrix</h3></div><div class="cb"><div id="cm-chart" style="height:340px"></div></div></div>
+        <div class="card"><div class="ch"><h3 id="fi-title">Feature Importance</h3></div><div class="cb"><div id="fi-chart" style="height:340px"></div></div></div>
+      </div>
+      <div class="card"><div class="ch"><h3>Predictions (Test Set)</h3><span class="badge b-green" id="pred-badge"></span></div><div style="padding:0"><div class="tw" id="pred-table"></div></div></div>
+    </div>
+  </div>
+
+  <!-- ── CHARTS ─────────────────────────────────────────────────────────── -->
+  <div class="tp" id="tab-charts">
+    <div class="empty" id="ch-empty">Upload a dataset to build charts.</div>
+    <div id="ch-block" class="hidden">
+      <div class="card mb16">
+        <div class="ch"><h3>Chart Builder</h3></div>
+        <div class="cb">
+          <div class="chart-ctrls">
+            <div class="ctrl"><label>Chart Type</label>
+              <select id="ch-type" onchange="onChartTypeChange()">
+                <option value="scatter">Scatter</option>
+                <option value="bar">Bar</option>
+                <option value="line">Line</option>
+                <option value="histogram">Histogram</option>
+                <option value="box">Box Plot</option>
+                <option value="pie">Pie / Donut</option>
+                <option value="heatmap">Heatmap</option>
+                <option value="scatter3d">3D Scatter</option>
+                <option value="bubble">Bubble</option>
+                <option value="violin">Violin</option>
+                <option value="pairs">Pair Plot</option>
+                <option value="area">Area</option>
+                <option value="funnel">Funnel</option>
+                <option value="waterfall">Waterfall</option>
+                <option value="radar">Radar / Spider</option>
+                <option value="strip">Strip Plot</option>
+                <option value="density">Density Contour</option>
+                <option value="parallel">Parallel Coords</option>
+                <option value="ternary">Ternary</option>
+                <option value="sunburst">Sunburst</option>
+              </select>
+            </div>
+            <div class="ctrl" id="cx-wrap"><label>X Axis</label><select id="ch-x"></select></div>
+            <div class="ctrl" id="cy-wrap"><label>Y Axis</label><select id="ch-y"></select></div>
+            <div class="ctrl" id="cz-wrap"><label>Z / Color / Size</label><select id="ch-z"><option value="">None</option></select></div>
+            <div class="ctrl" style="flex:0"><label>&nbsp;</label>
+              <button class="btn btn-primary" onclick="renderChart()">Render</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb16"><div class="cb" style="padding:6px"><div id="custom-chart" style="height:480px"></div></div></div>
+      <div class="card">
+        <div class="ch"><h3>Auto-Generated Charts</h3><button class="btn btn-secondary btn-sm" onclick="renderAutoCharts()">Refresh</button></div>
+        <div class="cb"><div class="g2" id="auto-charts"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WHAT-IF ────────────────────────────────────────────────────────── -->
+  <div class="tp" id="tab-whatif">
+    <div class="empty" id="wi-empty">Train a model to enable What-If predictions.</div>
+    <div id="wi-block" class="hidden">
+      <div class="card mb16">
+        <div class="ch"><h3>What-If Prediction</h3><span class="badge b-purple" id="wi-model-badge">—</span></div>
+        <div class="cb">
+          <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Adjust any feature value below and click Predict to see what your trained model would output.</p>
+          <div class="wi-grid" id="wi-fields"></div>
+          <button class="btn btn-primary" onclick="runWhatIf()" style="margin-bottom:14px">Predict</button>
+          <div id="wi-result" class="hidden"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><h3>How to interpret</h3></div>
+        <div class="cb">
+          <p style="font-size:13px;color:var(--text2);line-height:1.7">The What-If panel uses your most recently trained model. Works for supervised, unsupervised, and other model types. Change a value, click Predict, and see how the output changes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ARENA ──────────────────────────────────────────────────────────── -->
+  <div class="tp" id="tab-arena">
+    <div class="empty" id="arena-empty">Upload a dataset to run the Model Arena.</div>
+    <div id="arena-block" class="hidden">
+      <div class="card mb16">
+        <div class="ch">
+          <h3>Model Comparison Arena</h3>
+          <div style="display:flex;gap:8px;align-items:center;margin-left:auto">
+            <span class="badge b-purple" id="arena-category-badge">All Categories</span>
+            <button class="btn btn-primary btn-sm" onclick="runArena()" id="arena-btn">Run All Algorithms</button>
+          </div>
+        </div>
+        <div class="cb">
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Automatically runs all applicable algorithms across all categories and ranks the top 10 by performance score.</p>
+          <div id="arena-progress" class="hidden mb12">
+            <div class="pb-wrap"><div class="pb" id="arena-pb" style="width:0%"></div></div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px" id="arena-status"></div>
+          </div>
+          <div id="arena-results"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VISUALIZER ─────────────────────────────────────────────────────── -->
+  <div class="tp" id="tab-visualizer">
+    <div style="margin-bottom:14px">
+      <h2 style="font-size:18px;font-weight:800;margin-bottom:4px">Algorithm Visualizer</h2>
+      <p style="color:var(--muted);font-size:13px">Interactive step-by-step animations with formulas, derivations, real-world examples, and beginner explanations. Works with your uploaded data too!</p>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap" id="viz-mode-wrap">
+      <button class="btn btn-primary btn-sm active" id="vmode-default" onclick="setVizMode('default')">Demo Data</button>
+      <button class="btn btn-secondary btn-sm" id="vmode-user" onclick="setVizMode('user')">My Dataset</button>
+      <span class="text-m fs-sm" id="viz-mode-label" style="align-self:center">Using synthetic demo data</span>
+    </div>
+    <!-- Category filter -->
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px" id="viz-cat-filter">
+      <button class="btn btn-secondary btn-sm viz-cat-btn active" onclick="filterVizCat('')">All</button>
+      <button class="btn btn-secondary btn-sm viz-cat-btn" onclick="filterVizCat('Supervised')">Supervised</button>
+      <button class="btn btn-secondary btn-sm viz-cat-btn" onclick="filterVizCat('Unsupervised')">Unsupervised</button>
+      <button class="btn btn-secondary btn-sm viz-cat-btn" onclick="filterVizCat('Ensemble')">Ensemble</button>
+      <button class="btn btn-secondary btn-sm viz-cat-btn" onclick="filterVizCat('Deep Learning')">Deep Learning</button>
+      <button class="btn btn-secondary btn-sm viz-cat-btn" onclick="filterVizCat('Dim. Reduction')">Dim. Reduction</button>
+      <button class="btn btn-secondary btn-sm viz-cat-btn" onclick="filterVizCat('Anomaly')">Anomaly</button>
+      <button class="btn btn-secondary btn-sm viz-cat-btn" onclick="filterVizCat('RL')">RL</button>
+      <button class="btn btn-secondary btn-sm viz-cat-btn" onclick="filterVizCat('Optimization')">Optim.</button>
+      <button class="btn btn-secondary btn-sm viz-cat-btn" onclick="filterVizCat('Association')">Association</button>
+    </div>
+    <div class="agrid" id="algo-grid"></div>
+    <div id="viz-container" class="hidden" style="margin-top:16px">
+      <div class="card">
+        <div class="ch">
+          <h3 id="viz-title">Algorithm</h3>
+          <div style="display:flex;gap:6px;flex-wrap:wrap" id="viz-controls"></div>
+        </div>
+        <div class="cb" style="padding:8px 10px">
+          <div class="vc-wrap"><div id="viz-canvas-wrap"></div></div>
+          <div class="viz-info" id="viz-info"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HISTORY ────────────────────────────────────────────────────────── -->
+  <div class="tp" id="tab-history">
+    <div class="card">
+      <div class="ch"><h3>Experiment History</h3><button class="btn btn-secondary btn-sm" onclick="loadHistory()">Refresh</button></div>
+      <div style="padding:0"><div class="tw" id="history-table"><div class="empty">No experiments yet.</div></div></div>
+    </div>
+  </div>
+
+  <!-- ── FEEDBACK TAB ────────────────────────────────────────────────────── -->
+  <div class="tp" id="tab-feedback">
+    <div class="card" style="max-width:680px">
+      <div class="ch"><h3>Support &amp; Feedback</h3></div>
+      <div class="cb feedback-wrap">
+        <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:14px">Share bugs, missing features, or UI issues. Your feedback is stored for the admin.</p>
+        <input id="feedback-subject" type="text" placeholder="Subject" style="margin-bottom:10px">
+        <textarea id="feedback-message" placeholder="Write your feedback here…"></textarea>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+          <button class="btn btn-secondary btn-sm" onclick="clearFeedbackForm()">Clear</button>
+          <button class="btn btn-primary btn-sm" onclick="sendFeedback()" id="feedback-send-btn">Send Feedback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<!-- ── Footer ──────────────────────────────────────────────────────────────── -->
+<footer id="page-footer">
+  <div class="footer-brand-block">
+  <div class="footer-brand">
+    
+    <div class="footer-logo-wrap">
+      <canvas id="logo-canvas" width="76" height="76"></canvas>
+    </div>
+
+    <div class="footer-text">
+      <h3 class="footer-title">Modelora</h3>
+      <p class="footer-sub">Interactive ML Platform</p>
+    </div>
+
+  </div>
+    <div class="footer-policy-links">
+      <a href="#" onclick="showPrivacyPolicy();return false">Privacy Policy</a>
+      <a href="#" onclick="showTerms();return false">Terms of Use</a>
+      <a href="#" onclick="switchTab(document.querySelector('[data-tab=feedback]'));return false">Feedback</a>
+    </div>
+    <div class="footer-copy">© 2026 Modelora · All rights reserved</div>
+  </div>
+  <div class="footer-connect">
+    <div class="footer-connect-title">Connect</div>
+    <div class="footer-socials">
+      <a href="https://github.com" target="_blank" rel="noopener" title="GitHub" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </a>
+      <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter / X" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.258 5.632 5.906-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener" title="LinkedIn" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="https://youtube.com" target="_blank" rel="noopener" title="YouTube" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.5C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="mailto:support@modelora.ai" title="Email" class="social-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!-- ── Custom Modal ─────────────────────────────────────────────────────── -->
+<div id="modal-bg" class="hidden">
+  <div class="modal-card">
+    <div class="modal-icon-wrap mi-info" id="modal-icon-wrap"></div>
+    <div id="modal-title">Title</div>
+    <div id="modal-body">Body</div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
+      <button class="btn btn-primary" id="modal-confirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/icons.js"></script>
+<script src="/static/js/algo_viz.js"></script>
+<script src="/static/js/app.js"></script>
+<script>
+/* ── Mobile Hamburger ── */
+(function injectHamburger() {
+  const hdr = document.getElementById('header');
+  if (!hdr || document.querySelector('.hamburger')) return;
+  const btn = document.createElement('button');
+  btn.className = 'hamburger';
+  btn.setAttribute('aria-label', 'Toggle menu');
+  btn.innerHTML = '<span></span><span></span><span></span>';
+  btn.onclick = toggleSidebar;
+  btn.style.cssText = 'background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;display:none;flex-direction:column;gap:5px;transition:background .2s;margin-right:8px;';
+  hdr.insertBefore(btn, hdr.firstChild);
+  // Show only on mobile
+  const mq = window.matchMedia('(max-width:900px)');
+  function onMq(e) { btn.style.display = e.matches ? 'flex' : 'none'; }
+  mq.addListener(onMq); onMq(mq);
+})();
+</script>
+<script>
+/* ── User Dashboard Background Animation ── */
+(function(){
+  const cv=document.getElementById('dash-bg-canvas');
+  if(!cv)return;
+  const ctx=cv.getContext('2d');
+  let W,H,pts=[];
+  function resize(){
+    W=cv.width=window.innerWidth; H=cv.height=window.innerHeight;
+    pts=Array.from({length:45},()=>({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*.15, vy:(Math.random()-.5)*.15,
+      r:Math.random()*1.5+.3, hue:200+Math.random()*100,
+      pulse:Math.random()*Math.PI*2
+    }));
+  }
+  resize(); window.addEventListener('resize',resize);
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const dark=document.documentElement.getAttribute('data-theme')!=='light';
+    ctx.strokeStyle=dark?'rgba(124,92,252,.025)':'rgba(100,80,200,.03)';
+    ctx.lineWidth=.5;
+    const gs=80;
+    for(let x=0;x<W;x+=gs){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=0;y<H;y+=gs){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.pulse+=.018;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*(1+.25*Math.sin(p.pulse)),0,Math.PI*2);
+      ctx.fillStyle=`hsla(${p.hue},75%,65%,${.25+.15*Math.sin(p.pulse)})`;
+      ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++)
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+        if(d<110){
+          ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle=`rgba(124,92,252,${.08*(1-d/110)})`; ctx.lineWidth=.5; ctx.stroke();
+        }
+      }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+<style>
+  .footer {
+  padding: 20px;
+  background: #111827;
+  color: #fff;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-logo-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #1f293700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+#logo-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.footer-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.footer-sub {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+</style>
+</body>
+</html>

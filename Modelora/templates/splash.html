@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ML Dashboard V5</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#07090f;--primary:#7c5cfc;--second:#e040fb;--accent:#00d4ff;--success:#00e5a0;--text:#eef2ff;--muted:#5878a0}
+[data-theme="light"]{--bg:#f0f4ff;--text:#1a2040;--muted:#6878a8}
+body{background:var(--bg);font-family:'DM Sans',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:background .3s}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* Floating data cards */
+.float-card{position:fixed;background:rgba(14,19,32,.85);border:1px solid rgba(124,92,252,.2);border-radius:12px;padding:10px 14px;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);backdrop-filter:blur(8px);z-index:1;animation:cardFloat 8s ease-in-out infinite;opacity:0;animation-fill-mode:forwards}
+.float-card.fc1{top:15%;left:5%;animation-delay:.6s}
+.float-card.fc2{top:20%;right:6%;animation-delay:1.2s}
+.float-card.fc3{bottom:22%;left:4%;animation-delay:1.8s}
+.float-card.fc4{bottom:18%;right:5%;animation-delay:2.4s}
+@keyframes cardFloat{0%{opacity:0;transform:translateY(10px)}15%{opacity:1;transform:translateY(0)}85%{opacity:1;transform:translateY(-6px)}100%{opacity:.6;transform:translateY(-8px)}}
+.fc-label{color:rgba(124,92,252,.7);font-size:9px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.fc-val{color:var(--text);font-weight:500}
+.fc-bar{height:3px;background:rgba(124,92,252,.15);border-radius:2px;margin-top:5px;overflow:hidden}
+.fc-fill{height:100%;border-radius:2px;animation:barFill 2s ease forwards;animation-delay:.5s;width:0}
+
+/* Main splash */
+.splash{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:0;text-align:center}
+
+/* Logo ring */
+.logo-wrap{position:relative;width:130px;height:130px;display:flex;align-items:center;justify-content:center;margin-bottom:28px}
+.ring-outer{position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--primary),var(--second),var(--accent),var(--success),var(--primary));animation:ringRotate 3s linear infinite;mask:radial-gradient(farthest-side,transparent calc(100% - 3px),white calc(100% - 3px));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),white calc(100% - 3px));}
+.ring-mid{position:absolute;inset:8px;border-radius:50%;border:1px solid rgba(124,92,252,.15);animation:ringRotate 6s linear infinite reverse}
+@keyframes ringRotate{to{transform:rotate(360deg)}}
+.logo-inner{width:96px;height:96px;border-radius:28px;background:linear-gradient(135deg,rgba(124,92,252,.12),rgba(224,64,251,.08));border:1px solid rgba(124,92,252,.25);display:flex;align-items:center;justify-content:center;animation:logoPulse 2.5s ease-in-out infinite;}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 24px rgba(124,92,252,.3),inset 0 0 24px rgba(0,0,0,.2)}50%{box-shadow:0 0 48px rgba(124,92,252,.5),0 0 80px rgba(224,64,251,.15),inset 0 0 20px rgba(0,0,0,.1)}}
+
+/* Nodes pulse */
+.pulse-node{animation:nodePulse 1.8s ease-in-out infinite}
+.pulse-node:nth-child(2){animation-delay:.35s}.pulse-node:nth-child(3){animation-delay:.7s}
+.pulse-node:nth-child(4){animation-delay:.25s}.pulse-node:nth-child(5){animation-delay:.55s}
+.pulse-node:nth-child(6){animation-delay:.45s}.pulse-node:nth-child(7){animation-delay:.8s}
+.pulse-node:nth-child(8){animation-delay:.6s}
+@keyframes nodePulse{0%,100%{r:4;opacity:.8}50%{r:5.5;opacity:1}}
+
+/* Signal travel */
+@keyframes signalFlow{0%,100%{opacity:0}10%{opacity:1}90%{opacity:.8}}
+
+/* Brand text */
+.brand-name{font-size:30px;font-weight:800;letter-spacing:-.6px;color:var(--text);animation:slideUp .7s .3s cubic-bezier(.34,1.56,.64,1) both}
+.brand-v{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.brand-sub{margin-top:6px;font-size:13px;color:var(--muted);letter-spacing:.04em;animation:slideUp .6s .5s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* Stat chips */
+.stat-chips{display:flex;gap:10px;margin-top:20px;animation:slideUp .6s .7s both}
+.chip{background:rgba(124,92,252,.1);border:1px solid rgba(124,92,252,.2);border-radius:99px;padding:5px 14px;font-size:11px;font-family:'DM Mono',monospace;color:rgba(124,92,252,.9)}
+.chip.c2{background:rgba(0,212,255,.08);border-color:rgba(0,212,255,.2);color:rgba(0,212,255,.9)}
+.chip.c3{background:rgba(0,229,160,.08);border-color:rgba(0,229,160,.2);color:rgba(0,229,160,.9)}
+
+/* Progress */
+.progress-wrap{margin-top:28px;width:220px;height:2px;background:rgba(124,92,252,.12);border-radius:2px;overflow:hidden;animation:slideUp .4s .8s both}
+.progress-fill{height:100%;width:0;border-radius:2px;background:linear-gradient(90deg,var(--primary),var(--second),var(--accent));background-size:200%;animation:progressRun 1.8s .9s cubic-bezier(.4,0,.2,1) forwards,bgShift 2s linear infinite}
+@keyframes progressRun{from{width:0}to{width:100%}}
+@keyframes bgShift{to{background-position:200%}}
+.loading-text{margin-top:12px;font-size:11px;color:var(--muted);letter-spacing:.1em;font-family:'DM Mono',monospace;animation:slideUp .4s .9s both}
+.dot{animation:dotBlink 1.2s infinite}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes dotBlink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+@keyframes barFill{from{width:0}to{width:var(--w,70%)}}
+.splash-fade{animation:sFade .55s ease forwards}
+@keyframes sFade{to{opacity:0;transform:scale(1.04)}}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<!-- Floating data metrics -->
+<div class="float-card fc1"><div class="fc-label">Accuracy</div><div class="fc-val">97.4%</div><div class="fc-bar"><div class="fc-fill" style="background:#7c5cfc;--w:97%"></div></div></div>
+<div class="float-card fc2"><div class="fc-label">Algorithms</div><div class="fc-val">30+ models</div><div class="fc-bar"><div class="fc-fill" style="background:#00d4ff;--w:88%"></div></div></div>
+<div class="float-card fc3"><div class="fc-label">MSE Loss</div><div class="fc-val">0.0043</div><div class="fc-bar"><div class="fc-fill" style="background:#00e5a0;--w:96%"></div></div></div>
+<div class="float-card fc4"><div class="fc-label">Training</div><div class="fc-val">Epoch 12/15</div><div class="fc-bar"><div class="fc-fill" style="background:#e040fb;--w:80%"></div></div></div>
+
+<div class="splash" id="splash">
+  <div class="logo-wrap">
+    <div class="ring-outer"></div>
+    <div class="ring-mid"></div>
+    <div class="logo-inner">
+      <svg width="58" height="58" viewBox="0 0 56 56" fill="none">
+        <defs>
+          <linearGradient id="sl1" x1="0" y1="0" x2="56" y2="56"><stop stop-color="#7c5cfc"/><stop offset="1" stop-color="#00d4ff"/></linearGradient>
+          <linearGradient id="sl2" x1="0" y1="0" x2="56" y2="56"><stop stop-color="#e040fb"/><stop offset="1" stop-color="#7c5cfc"/></linearGradient>
+          <linearGradient id="sl3" x1="0" y1="0" x2="56" y2="56"><stop stop-color="#00e5a0"/><stop offset="1" stop-color="#00d4ff"/></linearGradient>
+        </defs>
+        <line x1="13" y1="16" x2="26" y2="11" stroke="rgba(124,92,252,.4)" stroke-width="1.2"/>
+        <line x1="13" y1="16" x2="26" y2="22" stroke="rgba(124,92,252,.4)" stroke-width="1.2"/>
+        <line x1="13" y1="16" x2="26" y2="33" stroke="rgba(124,92,252,.2)" stroke-width="1"/>
+        <line x1="13" y1="28" x2="26" y2="22" stroke="rgba(124,92,252,.4)" stroke-width="1.2"/>
+        <line x1="13" y1="28" x2="26" y2="33" stroke="rgba(124,92,252,.4)" stroke-width="1.2"/>
+        <line x1="13" y1="40" x2="26" y2="33" stroke="rgba(124,92,252,.4)" stroke-width="1.2"/>
+        <line x1="13" y1="40" x2="26" y2="44" stroke="rgba(124,92,252,.4)" stroke-width="1.2"/>
+        <line x1="29" y1="11" x2="43" y2="22" stroke="rgba(224,64,251,.5)" stroke-width="1.5"/>
+        <line x1="29" y1="22" x2="43" y2="22" stroke="rgba(224,64,251,.6)" stroke-width="1.5"/>
+        <line x1="29" y1="33" x2="43" y2="22" stroke="rgba(224,64,251,.5)" stroke-width="1.5"/>
+        <line x1="29" y1="44" x2="43" y2="34" stroke="rgba(224,64,251,.4)" stroke-width="1.5"/>
+        <line x1="29" y1="33" x2="43" y2="34" stroke="rgba(224,64,251,.5)" stroke-width="1.5"/>
+        <circle class="pulse-node" cx="13" cy="16" r="4" fill="url(#sl1)"/>
+        <circle class="pulse-node" cx="13" cy="28" r="4" fill="url(#sl1)"/>
+        <circle class="pulse-node" cx="13" cy="40" r="4" fill="url(#sl1)"/>
+        <circle class="pulse-node" cx="28" cy="11" r="4" fill="url(#sl2)"/>
+        <circle class="pulse-node" cx="28" cy="22" r="4" fill="url(#sl2)"/>
+        <circle class="pulse-node" cx="28" cy="33" r="4" fill="url(#sl2)"/>
+        <circle class="pulse-node" cx="28" cy="44" r="4" fill="url(#sl2)"/>
+        <circle class="pulse-node" cx="43" cy="22" r="5" fill="url(#sl3)"/>
+        <circle class="pulse-node" cx="43" cy="34" r="5" fill="url(#sl3)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="brand-name">MODELORA <span class="brand-v">V5</span></div>
+  <div class="brand-sub">Interactive Machine Learning Platform</div>
+  <div class="stat-chips">
+    <div class="chip">40+ Algorithms</div>
+    <div class="chip c2">Live Vizualization</div>
+    <div class="chip c3">Real Data</div>
+  </div>
+  <div class="progress-wrap"><div class="progress-fill"></div></div>
+  <div class="loading-text">Initialising<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
+</div>
+
+<script>
+const canvas=document.getElementById('bg-canvas'),ct=canvas.getContext('2d');let BW,BH,pts=[];
+function bResize(){BW=canvas.width=innerWidth;BH=canvas.height=innerHeight;pts=Array.from({length:60},()=>({x:Math.random()*BW,y:Math.random()*BH,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,r:Math.random()*1.3+.4,h:210+Math.random()*60}));}
+bResize();window.addEventListener('resize',bResize);
+function drawB(){ct.clearRect(0,0,BW,BH);for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);if(d<100){ct.strokeStyle=`rgba(124,92,252,${.2*(1-d/100)})`;ct.lineWidth=.5;ct.beginPath();ct.moveTo(pts[i].x,pts[i].y);ct.lineTo(pts[j].x,pts[j].y);ct.stroke();}}
+pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=BW;if(p.x>BW)p.x=0;if(p.y<0)p.y=BH;if(p.y>BH)p.y=0;ct.beginPath();ct.arc(p.x,p.y,p.r,0,Math.PI*2);ct.fillStyle=`hsla(${p.h},70%,65%,.6)`;ct.fill();});requestAnimationFrame(drawB);}
+drawB();
+const theme=localStorage.getItem('ml_theme')||'dark';document.documentElement.setAttribute('data-theme',theme);
+const msgs=['Initialising','Loading models','Preparing visualizations','Almost ready'];let mi=0;
+const msgT=setInterval(()=>{mi=(mi+1)%msgs.length;const el=document.querySelector('.loading-text');if(el)el.innerHTML=`${msgs[mi]}<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>`;},650);
+async function validateAndRedirect(){
+  const token=localStorage.getItem('ml_token');
+  if(!token){setTimeout(()=>{window.location.href='/login';},480);return;}
+  try{
+    const r=await fetch('/api/auth/me',{headers:{'Authorization':`Bearer ${token}`}});
+    const d=await r.json();
+    setTimeout(()=>{window.location.href=d&&d.ok?'/dashboard':'/login';},480);
+  }catch(e){
+    setTimeout(()=>{window.location.href='/login';},480);
+  }
+}
+setTimeout(()=>{clearInterval(msgT);const s=document.getElementById('splash');if(s)s.classList.add('splash-fade');validateAndRedirect();},2600);
+</script>
+</body>
+</html>

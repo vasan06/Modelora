@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <title>Modelora - Interactive Machine Learning Studio</title>
+
+  <meta name="title" content="Modelora - Interactive Machine Learning Studio">
+
+  <meta name="description" content="Modelora is a free interactive machine learning studio where users can learn, train, test, and visualize 40+ machine learning algorithms including regression, classification, clustering, PCA, and neural network concepts with real-time charts and dataset analysis.">
+
+  <meta name="keywords" content="machine learning,machine learning project,interactive machine learning,machine learning visualizer,machine learning dashboard,machine learning algorithms,ai learning platform,artificial intelligence project,data science dashboard,python machine learning,ml algorithms visualization,regression algorithms,classification algorithms,clustering algorithms,random forest,decision tree,linear regression,logistic regression,k means clustering,knn algorithm,naive bayes,pca visualization,data analytics dashboard,student machine learning project,free ai learning platform,deep learning basics,ml studio,interactive ai studio,machine learning web app,flask machine learning project,ml visualization tool,ai dashboard,dataset analysis tool,machine learning educational platform,data science learning,supervised learning,unsupervised learning,semi supervised learning,reinforcement learning,q learning demo,feature selection,dataset preprocessing,data visualization,algorithm comparison,machine learning experimentation,interactive charts,python flask ai project,ml training platform,free machine learning website,learn machine learning online,machine learning simulator,real time machine learning,ai algorithm explorer,modelora">
+
+  <meta name="author" content="Keerthivasan R">
+
+  <meta property="og:title" content="Modelora - Interactive ML Studio">
+
+  <meta property="og:description" content="Learn, Train, Visualize 40+ Machine Learning Algorithms interactively with real-time charts and dataset analysis.">
+
+  <meta property="og:type" content="website">
+
+  <meta property="og:url" content="https://modelora.onrender.com">
+
+  <meta property="og:image" content="https://modelora.onrender.com/static/img/logo_user.png">
+
+  <link rel="canonical" href="https://modelora.onrender.com">
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo_user.png') }}">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6M265SHR3K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6M265SHR3K');
+</script>
+</head>
+
+<body>
+  <canvas id="sceneCanvas"></canvas>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <a href="#home" class="brand">
+      <div class="brand-mark">
+        <canvas id="landing-logo-cv" width="36" height="36"></canvas>
+      </div>
+
+      <div>
+        <strong>Modelora</strong>
+        <span>Interactive ML Studio</span>
+      </div>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#demo">Demo</a>
+      <a href="#algorithms">Algorithms</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#guide">Beginner Guide</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3V5M12 19V21M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M3 12H5M19 12H21M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"></path>
+          <circle cx="12" cy="12" r="4"></circle>
+        </svg>
+      </button>
+
+      <a href="/login" class="nav-cta">Perform ML</a>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero depth-section" id="home">
+      <div class="hero-copy depth-card">
+        <p class="label">Machine Learning Made Understandable</p>
+
+        <h1>Train models, compare results, and understand what your data is saying.</h1>
+
+        <p>
+          Modelora helps beginners explore machine learning step by step.
+          Upload a dataset, choose the right algorithm, run training, and view
+          results using charts, metrics, predictions, and visual explanations.
+        </p>
+
+        <div class="hero-actions">
+          <a href="/login" class="primary-btn">Perform ML</a>
+          <a href="#guide" class="secondary-btn">Learn How It Works</a>
+        </div>
+      </div>
+
+      <div class="hero-stage depth-card">
+        <div class="ml-terminal">
+          <div class="terminal-bar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="terminal-grid">
+            <div>
+              <small>Dataset</small>
+              <strong>CSV uploaded</strong>
+            </div>
+
+            <div>
+              <small>Algorithm</small>
+              <strong>Random Forest</strong>
+            </div>
+
+            <div>
+              <small>Result</small>
+              <strong>Accuracy 94%</strong>
+            </div>
+          </div>
+
+          <div class="flow-map">
+            <span>Data</span>
+            <i></i>
+            <span>Train</span>
+            <i></i>
+            <span>Predict</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section depth-section" id="features">
+      <div class="section-head">
+        <p class="label">Features</p>
+        <h2>What you can do inside Modelora</h2>
+      </div>
+
+      <div class="card-grid four">
+        <article class="info-card depth-card">
+          <h3>Dataset Upload</h3>
+          <p>
+            Upload CSV or supported files and inspect rows, columns, missing
+            values, and data quality before training.
+          </p>
+        </article>
+
+        <article class="info-card depth-card">
+          <h3>Preprocessing</h3>
+          <p>
+            Prepare raw data by handling missing values, encoding text labels,
+            scaling numbers, and selecting useful features.
+          </p>
+        </article>
+
+        <article class="info-card depth-card">
+          <h3>Model Training</h3>
+          <p>
+            Select a machine learning method and train it using your dataset.
+            The app separates training and testing data.
+          </p>
+        </article>
+
+        <article class="info-card depth-card">
+          <h3>Visual Results</h3>
+          <p>
+            Understand output through charts, prediction tables, accuracy scores,
+            error values, and model comparison views.
+          </p>
+        </article>
+      </div>
+    </section>
+
+
+    <section class="section demo-section depth-section" id="demo">
+  <div class="section-head">
+    <p class="label">Live Preview</p>
+    <h2>Try a simple ML idea before login</h2>
+  </div>
+
+  <div class="demo-grid">
+    <div class="demo-panel depth-card">
+      <h3>Mini Prediction Demo</h3>
+      <p>
+        This sample shows how machine learning predicts a result from input data.
+        Change study hours and attendance to see an estimated score.
+      </p>
+
+      <label>Study Hours</label>
+      <input type="range" min="1" max="10" value="6" id="studyHours">
+      <strong id="studyHoursValue">6 hours</strong>
+
+      <label>Attendance</label>
+      <input type="range" min="40" max="100" value="80" id="attendance">
+      <strong id="attendanceValue">80%</strong>
+
+      <div class="prediction-box">
+        <span>Predicted Score</span>
+        <b id="predictedScore">78%</b>
+      </div>
+    </div>
+
+    <div class="demo-panel depth-card">
+      <h3>Model Performance Preview</h3>
+
+      <div class="bar-chart">
+        <div><span>Linear</span><i style="--v:68%"></i><b>68%</b></div>
+        <div><span>Tree</span><i style="--v:76%"></i><b>76%</b></div>
+        <div><span>KNN</span><i style="--v:81%"></i><b>81%</b></div>
+        <div><span>Forest</span><i style="--v:94%"></i><b>94%</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- ALGORITHMS -->
+    <section class="section depth-section" id="algorithms">
+      <div class="section-head">
+        <p class="label">Algorithms</p>
+        <h2>Algorithm types explained for beginners</h2>
+      </div>
+
+      <div class="algorithm-explainer depth-card" id="algorithmExplainer">
+  <div>
+    <p class="label">Selected Algorithm</p>
+    <h3 id="algoTitle">Click any algorithm name</h3>
+    <p id="algoText">
+      Select an algorithm from the cards below to see when to use it,
+      what problem it solves, and how a beginner can understand it.
+    </p>
+  </div>
+
+  <div class="algo-visual" id="algoVisual">
+    <svg viewBox="0 0 300 180">
+      <line x1="30" y1="145" x2="270" y2="145"></line>
+      <line x1="40" y1="155" x2="40" y2="25"></line>
+      <circle cx="80" cy="120" r="6"></circle>
+      <circle cx="120" cy="100" r="6"></circle>
+      <circle cx="160" cy="78" r="6"></circle>
+      <circle cx="205" cy="55" r="6"></circle>
+      <path d="M65 130 C120 100 170 75 230 45"></path>
+    </svg>
+  </div>
+</div>
+
+      <div class="algo-stack">
+
+        <!-- REGRESSION -->
+        <article class="algo-panel depth-card">
+          <h3>Regression</h3>
+          <p>
+            Use regression when the answer is a number, such as price, marks,
+            temperature, salary, or sales prediction.
+          </p>
+
+          <div class="mini-grid">
+            <div class="algo-chip" data-algo="linear">
+              <strong>Linear Regression</strong>
+              <span>Finds a straight-line relationship between input and output.</span>
+            </div>
+
+            <div class="algo-chip" data-algo="ridge">
+              <strong>Ridge Regression</strong>
+              <span>Improves linear regression when many features affect the result.</span>
+            </div>
+
+            <div class="algo-chip" data-algo="lasso">
+              <strong>Lasso Regression</strong>
+              <span>Selects important features and reduces unnecessary ones.</span>
+            </div>
+
+            <div class="algo-chip" data-algo="tree_reg">
+              <strong>Decision Tree Regression</strong>
+              <span>Splits data using rule-based decisions.</span>
+            </div>
+
+            <div class="algo-chip" data-algo="rf_reg">
+              <strong>Random Forest Regression</strong>
+              <span>Uses many decision trees for stronger numeric prediction.</span>
+            </div>
+
+            <div class="algo-chip" data-algo="knn_reg">
+              <strong>KNN Regression</strong>
+              <span>Predicts using nearby similar data points.</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- CLASSIFICATION -->
+        <article class="algo-panel depth-card">
+          <h3>Classification</h3>
+          <p>
+            Use classification when the answer is a category, such as pass or
+            fail, spam or not spam, disease or no disease, or product type.
+          </p>
+
+          <div class="mini-grid">
+            <div class="algo-chip" data-algo="logistic">
+              <strong>Logistic Regression</strong>
+              <span>Predicts probability of a class, such as yes or no.</span>
+            </div>
+
+            <div class="algo-chip" data-algo="tree_cls">
+              <strong>Decision Tree Classification</strong>
+              <span>Creates rule-based class decisions.</span>
+            </div>
+
+            <div class="algo-chip" data-algo="rf_cls">
+              <strong>Random Forest Classification</strong>
+              <span>Combines many trees to reduce wrong classification.</span>
+            </div>
+
+            <div class="algo-chip" data-algo="knn_cls">
+              <strong>KNN Classification</strong>
+              <span>Checks nearby examples and chooses the most common class.</span>
+            </div>
+
+            <div class="algo-chip" data-algo="bayes">
+              <strong>Naive Bayes</strong>
+              <span>Works well for text, spam detection, and probability-based problems.</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- CLUSTERING -->
+        <article class="algo-panel depth-card">
+          <h3>Clustering</h3>
+          <p>
+            Use clustering when there is no target column and you want the
+            system to find natural groups in data.
+          </p>
+
+          <div class="mini-grid">
+            <div class="algo-chip" data-algo="kmeans">
+              <strong>K-Means</strong>
+              <span>Groups data into K clusters based on similarity.</span>
+            </div>
+
+            <div class="algo-chip" data-algo="hierarchical">
+              <strong>Hierarchical Clustering</strong>
+              <span>Builds cluster groups step by step like a tree structure.</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- DIMENSIONALITY -->
+        <article class="algo-panel depth-card">
+          <h3>Dimensionality Reduction</h3>
+          <p>
+            Use this when the dataset has many columns and you want to simplify
+            it while keeping important information.
+          </p>
+
+          <div class="mini-grid">
+            <div class="algo-chip" data-algo="pca">
+              <strong>PCA</strong>
+              <span>Compresses many features into fewer meaningful components.</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- SEMI SUPERVISED -->
+        <article class="algo-panel depth-card">
+          <h3>Semi-Supervised Learning</h3>
+          <p>
+            Use this when only some rows have labels and the remaining rows are
+            unlabelled.
+          </p>
+
+          <div class="mini-grid">
+            <div class="algo-chip" data-algo="labelprop">
+              <strong>Label Propagation</strong>
+              <span>Spreads known labels to similar unlabelled data points.</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- REINFORCEMENT -->
+        <article class="algo-panel depth-card">
+          <h3>Reinforcement Learning</h3>
+          <p>
+            Use this to understand how an agent learns by trying actions and
+            receiving rewards or penalties.
+          </p>
+
+          <div class="mini-grid">
+            <div class="algo-chip" data-algo="qlearning">
+              <strong>Q-Learning</strong>
+              <span>Teaches an agent which action gives the best long-term reward.</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- WORKFLOW -->
+    <section class="section depth-section" id="workflow">
+      <div class="section-head">
+        <p class="label">Workflow</p>
+        <h2>How a user solves a machine learning problem</h2>
+      </div>
+
+      <div class="timeline-3d">
+        <div class="step-card depth-card">
+          <span>01</span>
+          <h3>Understand the Problem</h3>
+          <p>
+            Decide whether the output is a number, category, group, reduced
+            view, or reward-based action.
+          </p>
+        </div>
+
+        <div class="step-card depth-card">
+          <span>02</span>
+          <h3>Upload Dataset</h3>
+          <p>
+            Add your file and check if the columns, target value, and records
+            are correct.
+          </p>
+        </div>
+
+        <div class="step-card depth-card">
+          <span>03</span>
+          <h3>Select Algorithm</h3>
+          <p>
+            Choose the ML type and algorithm based on the problem you want to
+            solve.
+          </p>
+        </div>
+
+        <div class="step-card depth-card">
+          <span>04</span>
+          <h3>Train and Evaluate</h3>
+          <p>
+            Run the pipeline and read metrics such as accuracy, error,
+            prediction output, and charts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEGINNER GUIDE -->
+    <section class="section depth-section" id="guide">
+      <div class="section-head">
+        <p class="label">Beginner Guide</p>
+        <h2>How to choose the correct algorithm</h2>
+      </div>
+
+      <div class="decision-grid">
+        <div class="decision-card depth-card">
+          <h3>Need to predict a number?</h3>
+          <p>
+            Use regression. Example: predict house price, student marks,
+            salary, or sales amount.
+          </p>
+        </div>
+
+        <div class="decision-card depth-card">
+          <h3>Need to predict a label?</h3>
+          <p>
+            Use classification. Example: spam or not spam, pass or fail,
+            disease or no disease.
+          </p>
+        </div>
+
+        <div class="decision-card depth-card">
+          <h3>No target column?</h3>
+          <p>
+            Use clustering. Example: group customers, products, or similar
+            data points.
+          </p>
+        </div>
+
+        <div class="decision-card depth-card">
+          <h3>Too many columns?</h3>
+          <p>
+            Use PCA. It reduces features and helps visualize complex datasets.
+          </p>
+        </div>
+
+        <div class="decision-card depth-card">
+          <h3>Only some labels available?</h3>
+          <p>
+            Use semi-supervised learning. It learns from labelled and unlabelled
+            data together.
+          </p>
+        </div>
+
+        <div class="decision-card depth-card">
+          <h3>Agent learns from rewards?</h3>
+          <p>
+            Use reinforcement learning. It is useful for action-based learning
+            demos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CONTACT FOOTER -->
+  <footer class="footer contact-footer depth-section" id="contact">
+    <div class="footer-left depth-card">
+      <div class="footer-brand-row">
+        <div class="brand-mark">
+          <canvas id="landing-footer-logo-cv" width="36" height="36"></canvas>
+        </div>
+
+        <div>
+          <strong>Modelora</strong>
+          <span>Interactive ML Studio</span>
+        </div>
+      </div>
+
+      <p>
+        A beginner-friendly machine learning studio for learning, training,
+        visualizing, and understanding ML workflows.
+      </p>
+
+      <p class="footer-tagline">Learn, Train, Visualize</p>
+    </div>
+
+    <div class="footer-right depth-card">
+      <h3>Connect</h3>
+
+      <div class="social-row">
+        <a href="mailto:keerthivasan83000@gmail.com" class="social-link" title="Email">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 5H20C21.1 5 22 5.9 22 7V17C22 18.1 21.1 19 20 19H4C2.9 19 2 18.1 2 17V7C2 5.9 2.9 5 4 5Z"></path>
+            <path d="M22 7L12 13.5L2 7"></path>
+          </svg>
+          <span>Email</span>
+        </a>
+
+        <a href="https://github.com/vasan06" target="_blank" rel="noopener" class="social-link" title="GitHub">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 19C4 20.5 4 16.5 2 16M16 22V18.13C16.04 17.64 15.87 17.16 15.53 16.8C18.67 16.45 22 15.26 22 9.8C22 8.43 21.47 7.11 20.5 6.15C20.95 4.95 20.91 3.62 20.38 2.45C20.38 2.45 19.2 2.1 16.5 3.93C14.21 3.31 11.79 3.31 9.5 3.93C6.8 2.1 5.62 2.45 5.62 2.45C5.09 3.62 5.05 4.95 5.5 6.15C4.52 7.12 3.99 8.44 4 9.82C4 15.24 7.33 16.43 10.47 16.78C10.13 17.14 9.96 17.62 10 18.11V22"></path>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+
+      <small>© 2026 Modelora. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/icons.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/landing.js') }}"></script>
+</body>
+</html>
