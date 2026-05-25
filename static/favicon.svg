@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="ml" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c5cff"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" rx="16" fill="#0f172a"/>
+
+  <!-- Neural Network Nodes -->
+  <circle cx="18" cy="18" r="4" fill="url(#ml)"/>
+  <circle cx="18" cy="46" r="4" fill="url(#ml)"/>
+
+  <circle cx="32" cy="24" r="4" fill="url(#ml)"/>
+  <circle cx="32" cy="40" r="4" fill="url(#ml)"/>
+
+  <circle cx="46" cy="18" r="4" fill="url(#ml)"/>
+  <circle cx="46" cy="46" r="4" fill="url(#ml)"/>
+
+  <!-- Connections -->
+  <g stroke="url(#ml)" stroke-width="2" opacity="0.9">
+    <line x1="18" y1="18" x2="32" y2="24"/>
+    <line x1="18" y1="18" x2="32" y2="40"/>
+
+    <line x1="18" y1="46" x2="32" y2="24"/>
+    <line x1="18" y1="46" x2="32" y2="40"/>
+
+    <line x1="32" y1="24" x2="46" y2="18"/>
+    <line x1="32" y1="24" x2="46" y2="46"/>
+
+    <line x1="32" y1="40" x2="46" y2="18"/>
+    <line x1="32" y1="40" x2="46" y2="46"/>
+  </g>
+
+  <!-- AI Pulse -->
+  <circle cx="32" cy="32" r="2.5" fill="#ffffff">
+    <animate attributeName="r" values="2.5;4;2.5" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

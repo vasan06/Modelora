@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../static/favicon.svg">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.plot.ly https://fonts.googleapis.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self';">
+<title>Modelora — Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/admin.css">
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js" defer></script>
+</head>
+<body>
+<canvas id="admin-bg-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35"></canvas>
+
+<!-- ── Loading ────────────────────────────────────────────────────────── 
+<div id="a-overlay" class="show"><canvas id="admin-loader-cv" width="90" height="90" style="display:block;margin:0 auto 14px;filter:drop-shadow(0 0 20px rgba(0,229,160,.5))"></canvas><div style="font-size:11px;font-family:'DM Mono',monospace;color:rgba(0,229,160,.6);letter-spacing:.1em">AUTHENTICATING...</div></div>
+<div id="a-toasts"></div>
+<div id="announce-popup-wrap"></div>
+<div id="admin-sb-reopen" onclick="toggleAdminSidebar()" title="Open sidebar">
+  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+</div>
+
+<!-- ── User Detail Modal ─────────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="user-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="a-avatar" id="modal-avatar" style="width:36px;height:36px;font-size:16px">?</div>
+      <h2 id="modal-uname">User</h2>
+      <span id="modal-role-badge"></span>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-body">Loading…</div>
+  </div>
+</div>
+<!-- ── Layout ─────────────────────────────────────────────────────────── -->
+<div class="admin-layout">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="a-logo">
+      <div class="logo-icon-wrap" style="width:36px;height:36px;border-radius:10px;overflow:hidden;margin-right:12px;flex-shrink:0">
+        <canvas id="admin-logo-cv" width="36" height="36" style="display:block"></canvas>
+      </div>
+      <div>
+        <div class="a-logo-text">Modelora</div>
+        <div class="a-logo-sub">Admin Panel</div>
+      </div>
+    </div>
+
+    <!-- Mobile close button -->
+    <button id="admin-sidebar-close-btn" onclick="closeAdminMobileSidebar()" title="Close sidebar" style="display:none">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <nav class="a-nav">
+      <div class="a-nav-section">Monitor</div>
+      <a class="a-nav-item active" data-panel="overview"  onclick="switchPanel(this)"><span class="nav-icon"></span>Overview</a>
+      <a class="a-nav-item" data-panel="live"       onclick="switchPanel(this)"><span class="nav-icon"></span>Live Feed<span class="a-nav-badge green" id="badge-active">0</span></a>
+      <a class="a-nav-item" data-panel="health"     onclick="switchPanel(this)"><span class="nav-icon"></span>System Health</a>
+
+      <div class="a-nav-section">Users</div>
+      <a class="a-nav-item" data-panel="users"      onclick="switchPanel(this)"><span class="nav-icon"></span>All Users<span class="a-nav-badge" id="badge-users">0</span></a>
+      <a class="a-nav-item" data-panel="sessions"   onclick="switchPanel(this)"><span class="nav-icon"></span>Sessions</a>
+      <a class="a-nav-item" data-panel="audit"      onclick="switchPanel(this)"><span class="nav-icon"></span>Audit Log</a>
+
+      <div class="a-nav-section">Analytics</div>
+      <a class="a-nav-item" data-panel="experiments" onclick="switchPanel(this)"><span class="nav-icon"></span>Experiments</a>
+      <a class="a-nav-item" data-panel="security"   onclick="switchPanel(this)"><span class="nav-icon"></span>Security</a>
+
+      <div class="a-nav-section">Configure</div>
+      <a class="a-nav-item" data-panel="config"     onclick="switchPanel(this)"><span class="nav-icon"></span>Customise</a>
+      <a class="a-nav-item" data-panel="announce"   onclick="switchPanel(this)"><span class="nav-icon"></span>Announce</a>
+    </nav>
+
+    <div class="a-sidebar-footer">
+      <div class="a-user-chip">
+        <div class="a-avatar" id="sb-avatar">A</div>
+        <div>
+          <div class="a-user-name" id="sb-name">Admin</div>
+          <div class="a-user-role">Administrator</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="admin-main">
+    <!-- Topbar -->
+    <div class="admin-topbar">
+      <div id="admin-sidebar-toggle-btn" onclick="toggleAdminSidebar()" title="Toggle sidebar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </div>
+      <span class="topbar-title" id="topbar-title">Overview</span>
+      <div class="flex" style="gap:4px"><div class="live-dot"></div><span class="fs-xs text-s">Live</span></div>
+      <div class="topbar-right">
+        <span class="fs-xs text-m" id="last-updated"></span>
+        <button class="btn btn-ghost btn-xs" onclick="toggleTheme()" id="theme-btn" title="Toggle theme"><svg id="theme-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <a class="back-btn" href="/dashboard">Dashboard</a>
+        <button class="btn btn-danger btn-xs" onclick="adminLogout()">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="admin-content">
+
+      <!-- ── OVERVIEW ────────────────────────────────────────────────── -->
+      <div class="panel active" id="panel-overview">
+        <div class="stat-grid">
+          <div class="stat-card" style="cursor:pointer" title="Go to Users" onclick="goToPanel('users')"><div class="stat-lbl">Total Users</div><div class="stat-val text-p" id="st-users">—</div><div class="stat-sub" id="st-users-sub">loading…</div><div class="stat-trend"></div></div>
+          <div class="stat-card c-green" style="cursor:pointer" title="Go to Sessions" onclick="goToPanel('sessions')"><div class="stat-lbl">Active Today</div><div class="stat-val text-s" id="st-active">—</div><div class="stat-sub">unique sessions</div><div class="stat-trend"></div></div>
+          <div class="stat-card c-blue" style="cursor:pointer" title="Go to Experiments" onclick="goToPanel('experiments')"><div class="stat-lbl">Experiments</div><div class="stat-val" id="st-exp">—</div><div class="stat-sub" id="st-exp-sub">loading…</div><div class="stat-trend"></div></div>
+          <div class="stat-card c-warn" style="cursor:pointer" title="Go to Live Feed" onclick="goToPanel('live')"><div class="stat-lbl">Active Sessions</div><div class="stat-val" id="st-sess">—</div><div class="stat-sub">currently online</div><div class="stat-trend"></div></div>
+          <div class="stat-card c-red" style="cursor:pointer" title="Go to Security" onclick="goToPanel('security')"><div class="stat-lbl">Locked Accounts</div><div class="stat-val text-d" id="st-locked">—</div><div class="stat-sub">brute-force protection</div><div class="stat-trend"></div></div>
+          <div class="stat-card c-red" style="cursor:pointer" title="Go to Security" onclick="goToPanel('security')"><div class="stat-lbl">Failed Logins Today</div><div class="stat-val text-w" id="st-failed">—</div><div class="stat-sub">last 24 hours</div><div class="stat-trend"></div></div>
+        </div>
+
+        <div class="g2">
+          <div class="a-card">
+            <div class="a-ch"><h3>Top Algorithms Used</h3></div>
+            <div class="a-cb"><div id="algo-chart" class="chart-box"></div></div>
+          </div>
+          <div class="a-card">
+            <div class="a-ch"><h3>Recent Security Alerts</h3><span class="badge b-r" id="alert-count">0</span></div>
+            <div class="a-cb"><div class="live-feed" id="alert-feed"></div></div>
+          </div>
+        </div>
+
+        <div class="a-card">
+          <div class="a-ch"><h3>System Health Snapshot</h3><button class="btn btn-ghost btn-xs" onclick="loadHealth()">Refresh</button></div>
+          <div class="a-cb">
+            <div class="health-grid" id="health-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LIVE FEED ────────────────────────────────────────────────── -->
+      <div class="panel" id="panel-live">
+        <div class="a-card mb16">
+          <div class="a-ch"><h3>Active Sessions</h3><span class="badge b-g" id="live-sess-count">0 online</span></div>
+          <div style="padding:0"><div class="tw" id="live-sessions-table"><div class="empty">No active sessions</div></div></div>
+        </div>
+        <div class="a-card mb16">
+          <div class="a-ch"><h3>Live Activity Feed</h3><div class="live-dot"></div></div>
+          <div class="a-cb"><div class="live-feed" id="live-activity"></div></div>
+        </div>
+        <div class="a-card">
+          <div class="a-ch"><h3>Real-time Stats</h3></div>
+          <div class="a-cb">
+            <div class="g3">
+              <div><div class="stat-lbl">Req / 3s</div><div class="stat-val fs-lg" id="rt-req">—</div></div>
+              <div><div class="stat-lbl">CPU %</div><div class="stat-val fs-lg" id="rt-cpu">—</div></div>
+              <div><div class="stat-lbl">Memory %</div><div class="stat-val fs-lg" id="rt-mem">—</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HEALTH ───────────────────────────────────────────────────── -->
+      <div class="panel" id="panel-health">
+        <div class="a-card">
+          <div class="a-ch"><h3>Server Resources</h3><button class="btn btn-ghost btn-xs" onclick="loadHealth()">Refresh</button></div>
+          <div class="a-cb">
+            <div class="health-grid" id="health-detail"></div>
+            <div id="health-note" class="mt-8" style="font-size:11px;color:var(--muted);margin-top:8px"></div>
+          </div>
+        </div>
+        <div class="a-card">
+          <div class="a-ch"><h3>CPU & Memory History</h3></div>
+          <div class="a-cb"><div id="health-chart" class="chart-box"></div></div>
+        </div>
+      </div>
+
+      <!-- ── USERS ────────────────────────────────────────────────────── -->
+      <div class="panel" id="panel-users">
+        <div class="a-card">
+          <div class="a-ch">
+            <h3>All Users</h3>
+            <div class="flex mla" style="gap:6px">
+              <input class="search-box" id="user-search" placeholder="Search username or email…" oninput="debounce(loadUsers,400)()">
+              <select class="filter-sel" id="user-role-filter" onchange="loadUsers()">
+                <option value="">All roles</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
+              <button class="btn btn-ghost btn-xs" onclick="exportResource('users')">Export CSV</button>
+            </div>
+          </div>
+          <div style="padding:0">
+            <div class="tw" id="users-table"><div class="empty">Loading…</div></div>
+          </div>
+          <div class="pagination" id="users-pagination"></div>
+        </div>
+      </div>
+
+      <!-- ── SESSIONS ─────────────────────────────────────────────────── -->
+      <div class="panel" id="panel-sessions">
+        <div class="mb16">
+          <div class="a-card" style="margin-bottom:16px">
+            <div class="a-ch">
+              <h3>Active Sessions</h3>
+              <span class="badge b-g" id="sess-active-cnt">—</span>
+              <button class="btn btn-ghost btn-xs mla" onclick="loadSessions()">Refresh</button>
+            </div>
+            <div style="padding:8px 0 0"><div id="active-sess-table"><div class="empty">Loading…</div></div></div>
+          </div>
+          <div class="a-card">
+            <div class="a-ch">
+              <h3>Session History</h3>
+              <button class="btn btn-ghost btn-xs" onclick="exportResource('sessions')">Export CSV</button>
+            </div>
+            <div style="padding:8px 0 0"><div id="sess-history-table"><div class="empty">Loading…</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── AUDIT LOG ─────────────────────────────────────────────────── -->
+      <div class="panel" id="panel-audit">
+        <div class="a-card">
+          <div class="a-ch">
+            <h3>Audit Log</h3>
+            <div class="flex mla" style="gap:6px">
+              <select class="filter-sel" id="audit-severity" onchange="loadAudit()">
+                <option value="">All severities</option>
+                <option value="info">Info</option>
+                <option value="warn">Warning</option>
+                <option value="critical">Critical</option>
+              </select>
+              <input class="search-box" id="audit-actor" placeholder="Filter by user…" style="max-width:140px" oninput="debounce(loadAudit,400)()">
+              <button class="btn btn-ghost btn-xs" onclick="exportResource('audit')">Export CSV</button>
+            </div>
+          </div>
+          <div style="padding:0"><div class="tw" id="audit-table" style="min-height:420px"><div class="empty">Loading…</div></div></div>
+        </div>
+      </div>
+
+      <!-- ── EXPERIMENTS ───────────────────────────────────────────────── -->
+      <div class="panel" id="panel-experiments">
+        <div class="a-card mb16">
+          <div class="a-ch">
+            <h3>All Experiments</h3>
+            <div class="flex mla" style="gap:6px">
+              <input class="search-box" id="exp-user" placeholder="Filter by user…" style="max-width:140px" oninput="debounce(loadExperiments,400)()">
+              <input class="search-box" id="exp-algo" placeholder="Filter by algo…" style="max-width:140px" oninput="debounce(loadExperiments,400)()">
+              <button class="btn btn-ghost btn-xs" onclick="exportResource('experiments')">Export CSV</button>
+            </div>
+          </div>
+          <div style="padding:0"><div class="tw" id="exp-table"><div class="empty">Loading…</div></div></div>
+          <div class="pagination" id="exp-pagination"></div>
+        </div>
+        <div class="g2">
+          <div class="a-card">
+            <div class="a-ch"><h3>Score Distribution</h3></div>
+            <div class="a-cb"><div id="score-dist-chart" class="chart-box"></div></div>
+          </div>
+          <div class="a-card">
+            <div class="a-ch"><h3>Experiments Over Time</h3></div>
+            <div class="a-cb"><div id="exp-time-chart" class="chart-box"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SECURITY ──────────────────────────────────────────────────── -->
+      <div class="panel" id="panel-security">
+        <div class="a-card mb16">
+          <div class="a-ch">
+            <h3>Failed Logins (Recent)</h3>
+            <button class="btn btn-ghost btn-xs" onclick="loadSecurity()">Refresh</button>
+          </div>
+          <div style="padding:0"><div class="tw" id="sec-failed-table"><div class="empty">Loading…</div></div></div>
+        </div>
+        <div class="a-card mb16">
+          <div class="a-ch">
+            <h3>Locked Accounts</h3>
+            <span class="badge b-r" id="locked-count" style="display:none"></span>
+          </div>
+          <div style="padding:0"><div class="tw" id="sec-locked-table"><div class="empty">Loading…</div></div></div>
+        </div>
+        <div class="a-card">
+          <div class="a-ch"><h3>Rate Limit Events</h3></div>
+          <div style="padding:0"><div class="tw" id="sec-ratelimit-table"><div class="empty">Loading…</div></div></div>
+        </div>
+      </div>
+
+      <!-- ── CONFIG ────────────────────────────────────────────────────── -->
+      <div class="panel" id="panel-config">
+        <div class="g2">
+          <div>
+            <!-- Theme -->
+            <div class="a-card mb16">
+              <div class="a-ch"><h3> Theme & Colours</h3><button class="btn btn-primary btn-xs" onclick="saveConfig('theme')"> Save</button></div>
+              <div class="a-cb">
+                <div class="config-section">
+                  <div class="config-grid" id="color-fields"></div>
+                  <div class="config-field" style="margin-top:10px">
+                    <label>Feedback recipient email</label>
+                    <input id="contact-admin-feedback-email" type="email" placeholder="admin@example.com">
+                  </div>
+                  <div class="toggle-row" style="margin-top:10px">
+                    <span class="tl">Try sending feedback by email</span>
+                    <div class="toggle on" id="contact-feedback-mail-enabled" onclick="this.classList.toggle('on')"></div>
+                  </div>
+                  <div style="margin-top:10px;display:flex;justify-content:flex-end">
+                    <button class="btn btn-primary btn-xs" onclick="saveConfig('contact')">Save contact</button>
+                  </div>
+                  <div class="config-field" style="margin-top:10px">
+                    <label>Default Theme</label>
+                    <select id="cfg-default-theme">
+                      <option value="dark">Dark</option>
+                      <option value="light">Light</option>
+                    </select>
+                  </div>
+                  <div class="config-field" style="margin-top:8px">
+                    <label>Font Family</label>
+                    <select id="cfg-font">
+                      <option value="DM Sans">DM Sans (default)</option>
+                      <option value="Inter">Inter</option>
+                      <option value="Roboto">Roboto</option>
+                      <option value="Poppins">Poppins</option>
+                      <option value="Space Grotesk">Space Grotesk</option>
+                    </select>
+                  </div>
+                  <div class="config-field" style="margin-top:8px">
+                    <label>Border Radius (px)</label>
+                    <input type="number" id="cfg-radius" min="0" max="24" value="12">
+                  </div>
+                </div>
+                <div style="margin-top:12px">
+                  <div style="font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.07em">Presets</div>
+                  <div id="theme-presets-wrap" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"></div>
+                  <button class="btn btn-ghost btn-xs" onclick="resetThemeDefaults()">Reset to Defaults</button>
+                </div>
+                <div id="theme-preview" style="margin-top:10px">
+                  <!-- filled by updateThemePreview() -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Limits -->
+            <div class="a-card mb16">
+              <div class="a-ch"><h3>System Limits</h3><button class="btn btn-primary btn-xs" onclick="saveConfig('limits')">Save</button></div>
+              <div class="a-cb">
+                <div class="config-grid" id="limits-fields"></div>
+              </div>
+            </div>
+            <!-- Per-user time limits -->
+            <div class="a-card full-width-card">
+              <div class="a-ch"><h3>Per-User Session Time Limits</h3><button class="btn btn-primary btn-xs" onclick="saveAllTimeLimits()">Save All</button></div>
+              <div class="a-cb">
+                <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Set session time limits (minutes) for users. 0 = unlimited. Users get a 1-minute warning before auto-logout.</p>
+                <div id="time-limits-table"><div class="empty">Loading users…</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Features toggle -->
+            <div class="a-card mb16">
+              <div class="a-ch"><h3> Algorithm Availability</h3><button class="btn btn-primary btn-xs" onclick="saveConfig('features')"> Save</button></div>
+              <div class="a-cb">
+                <div class="fs-xs text-m mb12">Toggle which algorithms users can access:</div>
+                <div class="algo-toggles" id="algo-toggles"></div>
+                <div class="sep"></div>
+                <div class="toggle-row">
+                  <span class="tl">What-If Predictor</span>
+                  <div class="toggle on" id="feat-whatif" onclick="this.classList.toggle('on')"></div>
+                </div>
+                <div class="toggle-row">
+                  <span class="tl">Model Arena</span>
+                  <div class="toggle on" id="feat-arena" onclick="this.classList.toggle('on')"></div>
+                </div>
+                <div class="toggle-row">
+                  <span class="tl">Algorithm Visualizer</span>
+                  <div class="toggle on" id="feat-viz" onclick="this.classList.toggle('on')"></div>
+                </div>
+                <div class="sep"></div>
+                <div class="toggle-row">
+                  <span class="tl">User Registration Open</span>
+                  <div class="toggle on" id="feat-reg" onclick="this.classList.toggle('on')"></div>
+                </div>
+                <div class="toggle-row">
+                  <span class="tl">Maintenance Mode</span>
+                  <div class="toggle" id="feat-maint" onclick="this.classList.toggle('on')"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ANNOUNCE ──────────────────────────────────────────────────── -->
+      <div class="panel" id="panel-announce">
+        <div class="g2">
+          <div class="a-card">
+            <div class="a-ch"><h3>Send Announcement</h3></div>
+            <div class="a-cb">
+              <p class="fs-sm text-m mb12">Announcements display as popup notifications at the center-top of all user screens.</p>
+              <div class="announce-form">
+                <textarea id="ann-text" placeholder="Write your announcement…" style="min-height:100px;width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px;color:var(--text);font-size:13px;resize:vertical;font-family:inherit"></textarea>
+                <div style="display:flex;gap:6px;margin-top:10px">
+                  <select id="ann-type" class="filter-sel">
+                    <option value="info">ℹ Info</option>
+                    <option value="warn">Warning</option>
+                    <option value="danger">Alert</option>
+                    <option value="success">Success</option>
+                  </select>
+                  <button class="btn btn-primary" style="flex:1" onclick="sendAnnouncement()">Send Announcement</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="a-card">
+            <div class="a-ch"><h3>Active Announcements</h3><button class="btn btn-ghost btn-xs mla" onclick="loadAnnouncements()">Refresh</button></div>
+            <div class="a-cb">
+              <div id="ann-list"><div class="empty">No active announcements</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="a-card" style="margin-top:16px">
+          <div class="a-ch">
+            <h3>Announcement History</h3>
+            <span class="fs-xs text-m" style="color:var(--muted)">All past announcements</span>
+            <button class="btn btn-ghost btn-xs mla" onclick="loadAnnouncementHistory()">Refresh</button>
+          </div>
+          <div class="a-cb" id="ann-history-table"><div class="empty">Click refresh to load history</div></div>
+        </div>
+
+        <div class="a-card" style="margin-top:16px">
+          <div class="a-ch">
+            <h3>User Feedback Inbox</h3>
+            <button class="btn btn-secondary btn-xs mla" onclick="loadFeedback()">Refresh</button>
+          </div>
+          <div class="a-cb">
+            <p class="fs-sm text-m mb12">User feedback submissions with metadata.</p>
+            <div id="feedback-list"><div class="empty">No feedback yet.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:18px 0 4px;color:var(--muted);font-size:12px">Modelora V6 · Admin Console</div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-main -->
+</div><!-- /admin-layout -->
+
+
+<!-- ── Admin Custom Modal ─────────────────────────────────────────────── -->
+<div id="adm-modal-bg" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:3000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;width:100%;max-width:440px;box-shadow:0 24px 72px rgba(0,0,0,.6)">
+    <div id="adm-modal-icon" class="adm-modal-icon-wrap adm-mi-info" style="width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px"></div>
+    <div id="adm-modal-title" style="font-size:18px;font-weight:800;margin-bottom:8px;color:var(--text)"></div>
+    <div id="adm-modal-body" style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px"></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end">
+      <button id="adm-modal-cancel" class="btn btn-secondary">Cancel</button>
+      <button id="adm-modal-confirm" class="btn btn-primary">Confirm</button>
+    </div>
+  </div>
+</div>
+<script src="/static/js/icons.js" defer></script>
+<script src="/static/js/admin.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  /* Mobile hamburger for admin */
+  const topbar = document.querySelector('.a-topbar') || document.querySelector('#admin-header') || document.querySelector('header');
+  if (topbar && !document.querySelector('.admin-hamburger')) {
+    const btn = document.createElement('button');
+    btn.className = 'admin-hamburger';
+    btn.setAttribute('aria-label','Toggle menu');
+    btn.innerHTML = '<span style="display:block;width:18px;height:2px;background:currentColor;border-radius:2px;margin:4px 0;transition:all .3s"></span>'.repeat(3);
+    btn.style.cssText = 'background:none;border:none;cursor:pointer;padding:6px 8px;display:none;flex-direction:column;gap:0;border-radius:8px;color:var(--text)';
+    btn.onclick = toggleAdminSidebar;
+    topbar.insertBefore(btn, topbar.firstChild);
+    const mq = window.matchMedia('(max-width:900px)');
+    const onMq = e => { btn.style.display = e.matches ? 'flex' : 'none'; };
+    mq.addListener(onMq); onMq(mq);
+  }
+});
+</script>
+<script>
+/* ── Admin Background Particle Animation ── */
+(function(){
+  const cv=document.getElementById('admin-bg-canvas');
+  if(!cv)return;
+  const ctx=cv.getContext('2d');
+  let W,H,pts=[],lines=[];
+  function resize(){
+    W=cv.width=window.innerWidth; H=cv.height=window.innerHeight;
+    pts=Array.from({length:55},()=>({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*.18, vy:(Math.random()-.5)*.18,
+      r:Math.random()*1.8+.4,
+      hue:180+Math.random()*80,
+      alpha:Math.random()*.5+.2,
+      pulse:Math.random()*Math.PI*2
+    }));
+  }
+  resize(); window.addEventListener('resize',resize);
+  let frame=0;
+  function draw(){
+    frame++;
+    ctx.clearRect(0,0,W,H);
+    const dark=document.documentElement.getAttribute('data-theme')!=='light';
+    // Subtle grid
+    ctx.strokeStyle=dark?'rgba(0,229,160,.025)':'rgba(0,160,120,.03)';
+    ctx.lineWidth=.5;
+    const gs=70;
+    for(let x=0;x<W;x+=gs){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=0;y<H;y+=gs){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    // Move & draw nodes
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      p.pulse+=.02;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*(1+.3*Math.sin(p.pulse)),0,Math.PI*2);
+      ctx.fillStyle=`hsla(${p.hue},80%,65%,${p.alpha*(0.7+0.3*Math.sin(p.pulse))})`;
+      ctx.fill();
+    });
+    // Draw connecting lines
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<120){
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle=`rgba(0,229,160,${.12*(1-dist/120)})`;
+          ctx.lineWidth=.6;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

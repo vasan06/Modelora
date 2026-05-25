@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modelora – Maintenance</title>
+  <link rel="icon" type="image/svg+xml" href="../static/favicon.svg">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#060b14;--primary:#7c5cfc;--second:#e040fb;--accent:#00d4ff;--text:#eef2ff;--muted:#5878a0}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:f 12s ease-in-out infinite}
+.o1{width:400px;height:400px;background:rgba(124,92,252,.12);top:-100px;left:-100px}
+.o2{width:300px;height:300px;background:rgba(0,212,255,.08);bottom:-60px;right:-60px;animation-delay:-6s}
+@keyframes f{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-15px)}}
+.wrap{position:relative;z-index:1;text-align:center;padding:40px 20px;max-width:560px}
+.icon-wrap{width:100px;height:100px;border-radius:28px;margin:0 auto 30px;background:linear-gradient(135deg,rgba(124,92,252,.15),rgba(224,64,251,.08));border:1px solid rgba(124,92,252,.3);display:flex;align-items:center;justify-content:center;animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 20px rgba(124,92,252,.3)}50%{box-shadow:0 0 50px rgba(124,92,252,.6)}}
+.gear{animation:spin 4s linear infinite;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-size:32px;font-weight:800;color:var(--text);margin-bottom:12px;letter-spacing:-.5px}
+.gradient{background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+p{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:24px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,92,252,.12);border:1px solid rgba(124,92,252,.25);border-radius:20px;padding:8px 18px;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:30px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--primary);animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.progress-bar{width:100%;height:4px;background:rgba(124,92,252,.15);border-radius:2px;overflow:hidden;margin-top:20px}
+.progress-fill{height:100%;width:65%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:2px;animation:progress 3s ease-in-out infinite alternate}
+@keyframes progress{from{width:50%}to{width:80%}}
+</style></head><body>
+<div class="orb o1"></div><div class="orb o2"></div>
+<div class="wrap">
+  <div class="icon-wrap">
+    <svg class="gear" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+    </svg>
+  </div>
+  <div class="badge"><div class="dot"></div> Maintenance in Progress</div>
+  <h1><span class="gradient">Modelora</span> is getting an upgrade</h1>
+  <p>We're performing scheduled maintenance to improve your experience. The platform will be back online shortly. Thank you for your patience.</p>
+  <p style="font-size:13px;color:rgba(88,120,160,.7)">Estimated downtime: ~30 minutes · Last updated: just now</p>
+  <div class="progress-bar"><div class="progress-fill"></div></div>
+</div>
+</body></html>
