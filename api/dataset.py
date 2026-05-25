@@ -264,7 +264,13 @@ def upload():
 
 @ds_bp.post("/api/dataset/builtin")
 def builtin():
-    username = require_auth(request, _s()) or "anon"
+    username = "demo"
+    try:
+        auth_user = require_auth(request, _s())
+        if auth_user:
+            username = auth_user
+    except Exception:
+        pass
     data = request.get_json(silent=True) or {}
     name = data.get("name")
     if not name: return jsonify({"ok":False,"msg":"No dataset name"}), 400
